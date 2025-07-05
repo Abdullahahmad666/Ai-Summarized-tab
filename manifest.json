@@ -9,8 +9,6 @@
   "permissions": ["tabs", "storage"],
   "background": {
     "service_worker": "src/background.js"
-  },
-  "icons": {
-    "128": "public/icon128.png"
   }
+  
 }
