@@ -2,13 +2,13 @@
   "manifest_version": 3,
   "name": "AI Tab Saver",
   "version": "1.0",
-  "description": "Save and summarize your tab sessions with AI.",
-  "action": {
-    "default_popup": "popup.html"
-  },
+  "description": "Save your tab sessions smartly with AI",
   "permissions": ["tabs", "storage"],
   "background": {
-    "service_worker": "src/background.js"
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "AI Tab Saver"
   }
-  
 }
