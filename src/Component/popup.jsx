@@ -1,6 +1,7 @@
+/* global chrome */
 import { useEffect, useState } from "react";
 
-function popup() {
+function Popup() {
   const [tabs, setTabs] = useState([]);
   const [saved, setSaved] = useState(false);
 
@@ -39,4 +40,4 @@ function popup() {
   );
 }
 
-export default popup;
+export default Popup;
