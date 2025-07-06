@@ -1,96 +1,85 @@
-/*global chrome */
+/* global chrome */
 import React, { useEffect, useState } from 'react';
+import './style.css';
 
 const Popup = () => {
   const [tabs, setTabs] = useState([]);
+  const [expandedTabId, setExpandedTabId] = useState(null);
 
-  // Fetch saved tabs on popup load
   useEffect(() => {
-    chrome.storage.local.get('savedTabs', (data) => {
-      if (data.savedTabs) {
-        setTabs(data.savedTabs);
+    chrome.storage.local.get(['savedTabs'], (result) => {
+      if (result.savedTabs) {
+        setTabs(result.savedTabs);
       }
     });
   }, []);
 
-  // Save all current tabs
   const handleSaveTabs = () => {
     chrome.tabs.query({}, (tabs) => {
-      const tabData = tabs.map((tab) => ({
+      const currentTabs = tabs.map((tab) => ({
+        id: tab.id,
         title: tab.title,
-        url: tab.url,
+        url: tab.url
       }));
-
-      chrome.storage.local.set({ savedTabs: tabData }, () => {
-        setTabs(tabData);
-        alert('Tabs saved!');
+      chrome.storage.local.set({ savedTabs: currentTabs }, () => {
+        setTabs(currentTabs);
       });
     });
   };
 
-  // Delete a single tab by index
-  const handleDeleteTab = (index) => {
-    const updatedTabs = [...tabs];
-    updatedTabs.splice(index, 1);
-
+  const handleDeleteTab = (url) => {
+    const updatedTabs = tabs.filter((tab) => tab.url !== url);
     chrome.storage.local.set({ savedTabs: updatedTabs }, () => {
       setTabs(updatedTabs);
     });
   };
 
-  // Clear all saved tabs
-  const handleClearTabs = () => {
+  const handleClearAll = () => {
     chrome.storage.local.remove('savedTabs', () => {
       setTabs([]);
-      alert('All tabs cleared!');
     });
   };
 
+  const toggleExpand = (url) => {
+    setExpandedTabId(expandedTabId === url ? null : url);
+  };
+
+  const handleClosePopup = () => {
+    window.close();
+  };
+
   return (
-    <div style={{ padding: '10px', width: '300px', fontFamily: 'sans-serif' }}>
-      <h3>AI Tab Saver</h3>
-
-      <div style={{ display: 'flex', gap: '10px', marginBottom: '10px' }}>
-        <button onClick={handleSaveTabs}>Save Tabs</button>
-        <button onClick={handleClearTabs} style={{ backgroundColor: '#f44336', color: 'white' }}>
-          Clear All
-        </button>
+    <div className="container">
+      <div className="header">
+        <h1>AI Tab Saver</h1>
+        <button className="close-btn" onClick={handleClosePopup}>&times;</button>
       </div>
-
-      <hr />
-
-      {tabs.length > 0 ? (
-        <ul style={{ listStyle: 'none', padding: 0 }}>
-          {tabs.map((tab, index) => (
-            <li key={index} style={{ marginBottom: '8px' }}>
-              <a
-                href={tab.url}
-                target="_blank"
-                rel="noreferrer"
-                style={{ textDecoration: 'none', color: '#007bff' }}
-              >
-                {tab.title}
-              </a>
-              <button
-                onClick={() => handleDeleteTab(index)}
-                style={{
-                  marginLeft: '10px',
-                  backgroundColor: '#e53935',
-                  color: 'white',
-                  border: 'none',
-                  borderRadius: '3px',
-                  padding: '2px 6px',
-                  cursor: 'pointer',
-                }}
-              >
-                ✕
-              </button>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p>No tabs saved.</p>
-      )}
+      <div className="button-group">
+        <button onClick={handleSaveTabs}>Save Tabs</button>
+        <button onClick={handleClearAll} style={{ backgroundColor: '#dc3545' }}>Clear All</button>
+      </div>
+      <div className="tabs-list">
+        {tabs.map((tab) => (
+          <div key={tab.url} className="tab-card" onClick={() => toggleExpand(tab.url)}>
+            <div className="tab-title">{tab.title}</div>
+            {expandedTabId === tab.url && (
+              <div className="tab-actions">
+                <button onClick={(e) => { e.stopPropagation(); chrome.tabs.create({ url: tab.url }); }}>Open</button>
+                <button onClick={(e) => { e.stopPropagation(); handleDeleteTab(tab.url); }}>Delete</button>
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+      <div className="restore-all">
+  {tabs.length > 0 && (
+    <button onClick={() => {
+      tabs.forEach(tab => {
+        chrome.tabs.create({ url: tab.url });
+      });
+    }}>Restore All Tabs</button>
+  )}
+</div>
     </div>
   );
 };
