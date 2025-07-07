@@ -1,7 +1,9 @@
 "use client"
+/*global chrome*/
 
 import { useState, useEffect } from "react"
-import { chrome } from "chrome"
+import "./style.css"
+
 
 const Popup = () => {
   const [savedTabs, setSavedTabs] = useState([])
