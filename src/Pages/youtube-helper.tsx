@@ -144,7 +144,7 @@ export default function YouTubeHelperPage() {
                 <CardContent className="p-0">
                   <div className="relative aspect-video bg-gray-900 rounded-t-lg overflow-hidden">
                     <Image
-                      src={videoData.thumbnail || "/placeholder.svg"}
+                      src={videoData.thumbnail || "/placeholder.svg?height=360&width=640"}
                       alt={videoData.title}
                       width={640}
                       height={360}
