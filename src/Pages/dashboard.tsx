@@ -22,9 +22,9 @@ import {
 } from "lucide-react"
 
 // Import the individual page components
-import SubscriptionPlans from "./subscription-plans"
-import ProfilePage from "./profile-page"
-import CategorizedTabsPage from "./categorized-tabs"
+import SubscriptionPlans from "./subscription"
+import ProfilePage from "./profile"
+import CategorizedTabsPage from "./categorized"
 import YouTubeHelperPage from "./youtube-helper"
 
 export default function Dashboard() {
