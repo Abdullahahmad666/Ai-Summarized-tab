@@ -21,7 +21,7 @@ import {
 } from "lucide-react"
 import Link from "next/link"
 
-export default function Component() {
+export default function LandingPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
       {/* Header */}
@@ -231,6 +231,124 @@ export default function Component() {
         </div>
       </section>
 
+      {/* Testimonials Section */}
+      <section className="py-20 bg-gray-50">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">What Our Users Say</h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              Join thousands of satisfied users who have transformed their browsing experience
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            {/* Testimonial 1 */}
+            <Card className="border-0 shadow-lg hover:shadow-xl transition-shadow">
+              <CardContent className="p-6">
+                <div className="flex items-center mb-4">
+                  <div className="flex text-yellow-400">
+                    {[...Array(5)].map((_, i) => (
+                      <svg key={i} className="w-4 h-4 fill-current" viewBox="0 0 20 20">
+                        <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
+                      </svg>
+                    ))}
+                  </div>
+                </div>
+                <p className="text-gray-700 mb-4 italic">
+                  "AI Tab Saver has completely changed how I research. The AI summaries save me hours every day, and the
+                  automatic categorization keeps everything organized perfectly."
+                </p>
+                <div className="flex items-center">
+                  <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center text-white font-semibold">
+                    S
+                  </div>
+                  <div className="ml-3">
+                    <p className="font-semibold text-gray-900">Sarah Chen</p>
+                    <p className="text-sm text-gray-600">UX Researcher</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Testimonial 2 */}
+            <Card className="border-0 shadow-lg hover:shadow-xl transition-shadow">
+              <CardContent className="p-6">
+                <div className="flex items-center mb-4">
+                  <div className="flex text-yellow-400">
+                    {[...Array(5)].map((_, i) => (
+                      <svg key={i} className="w-4 h-4 fill-current" viewBox="0 0 20 20">
+                        <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
+                      </svg>
+                    ))}
+                  </div>
+                </div>
+                <p className="text-gray-700 mb-4 italic">
+                  "As a developer, I have dozens of documentation tabs open. The smart tooltips and categorization make
+                  it so easy to find what I need instantly. Game changer!"
+                </p>
+                <div className="flex items-center">
+                  <div className="w-10 h-10 bg-gradient-to-r from-green-500 to-blue-500 rounded-full flex items-center justify-center text-white font-semibold">
+                    M
+                  </div>
+                  <div className="ml-3">
+                    <p className="font-semibold text-gray-900">Marcus Rodriguez</p>
+                    <p className="text-sm text-gray-600">Full Stack Developer</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Testimonial 3 */}
+            <Card className="border-0 shadow-lg hover:shadow-xl transition-shadow">
+              <CardContent className="p-6">
+                <div className="flex items-center mb-4">
+                  <div className="flex text-yellow-400">
+                    {[...Array(5)].map((_, i) => (
+                      <svg key={i} className="w-4 h-4 fill-current" viewBox="0 0 20 20">
+                        <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
+                      </svg>
+                    ))}
+                  </div>
+                </div>
+                <p className="text-gray-700 mb-4 italic">
+                  "I was skeptical about AI tools, but this extension is incredible. The summaries are accurate and the
+                  interface is so intuitive. Worth every penny of the Pro plan."
+                </p>
+                <div className="flex items-center">
+                  <div className="w-10 h-10 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center text-white font-semibold">
+                    E
+                  </div>
+                  <div className="ml-3">
+                    <p className="font-semibold text-gray-900">Emily Watson</p>
+                    <p className="text-sm text-gray-600">Content Strategist</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Stats Section */}
+          <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
+            <div className="text-center">
+              <div className="text-3xl font-bold text-gray-900 mb-2">50K+</div>
+              <p className="text-gray-600">Active Users</p>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl font-bold text-gray-900 mb-2">1M+</div>
+              <p className="text-gray-600">Tabs Saved</p>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl font-bold text-gray-900 mb-2">4.8★</div>
+              <p className="text-gray-600">Chrome Store Rating</p>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl font-bold text-gray-900 mb-2">99%</div>
+              <p className="text-gray-600">User Satisfaction</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Pricing Section */}
       <section id="pricing" className="py-20 bg-gray-50">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -329,9 +447,6 @@ export default function Component() {
           </div>
         </div>
       </section>
-      <div className="bg-red-500 text-white p-4">
-  If you see red background, Tailwind is working!
-</div>
 
       {/* Final CTA Section */}
       <section className="py-20 bg-gradient-to-r from-blue-600 to-purple-600">
@@ -344,7 +459,7 @@ export default function Component() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button size="lg" className="bg-white text-blue-600 hover:bg-gray-100">
               <Chrome className="mr-2 h-5 w-5" />
-              Install Now - It&#39;s Free
+              Install Now - It's Free
             </Button>
             <Button
               size="lg"
@@ -353,6 +468,139 @@ export default function Component() {
             >
               Learn More
             </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section className="py-20 bg-white">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">Frequently Asked Questions</h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">Everything you need to know about AI Tab Saver</p>
+          </div>
+
+          <div className="max-w-4xl mx-auto">
+            <div className="grid md:grid-cols-2 gap-8">
+              {/* Left Column */}
+              <div className="space-y-6">
+                <div className="bg-gray-50 rounded-lg p-6">
+                  <h3 className="font-semibold text-gray-900 mb-3 flex items-center">
+                    <div className="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center mr-3">
+                      <span className="text-blue-600 text-sm font-bold">?</span>
+                    </div>
+                    How does the AI summarization work?
+                  </h3>
+                  <p className="text-gray-600 text-sm">
+                    Our AI analyzes the content of web pages using advanced natural language processing to extract key
+                    information and create concise, accurate summaries in seconds.
+                  </p>
+                </div>
+
+                <div className="bg-gray-50 rounded-lg p-6">
+                  <h3 className="font-semibold text-gray-900 mb-3 flex items-center">
+                    <div className="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center mr-3">
+                      <span className="text-blue-600 text-sm font-bold">?</span>
+                    </div>
+                    Is my browsing data private and secure?
+                  </h3>
+                  <p className="text-gray-600 text-sm">
+                    Absolutely. We only process the content you explicitly save. Your browsing history and personal data
+                    remain completely private and are never stored on our servers.
+                  </p>
+                </div>
+
+                <div className="bg-gray-50 rounded-lg p-6">
+                  <h3 className="font-semibold text-gray-900 mb-3 flex items-center">
+                    <div className="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center mr-3">
+                      <span className="text-blue-600 text-sm font-bold">?</span>
+                    </div>
+                    Can I export my saved tabs?
+                  </h3>
+                  <p className="text-gray-600 text-sm">
+                    Yes! Pro users can export their saved tabs and summaries in multiple formats including JSON, CSV,
+                    and PDF for backup or sharing purposes.
+                  </p>
+                </div>
+
+                <div className="bg-gray-50 rounded-lg p-6">
+                  <h3 className="font-semibold text-gray-900 mb-3 flex items-center">
+                    <div className="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center mr-3">
+                      <span className="text-blue-600 text-sm font-bold">?</span>
+                    </div>
+                    What languages are supported?
+                  </h3>
+                  <p className="text-gray-600 text-sm">
+                    AI Tab Saver supports content in over 50 languages including English, Spanish, French, German,
+                    Chinese, Japanese, and many more.
+                  </p>
+                </div>
+              </div>
+
+              {/* Right Column */}
+              <div className="space-y-6">
+                <div className="bg-gray-50 rounded-lg p-6">
+                  <h3 className="font-semibold text-gray-900 mb-3 flex items-center">
+                    <div className="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center mr-3">
+                      <span className="text-blue-600 text-sm font-bold">?</span>
+                    </div>
+                    How accurate are the AI summaries?
+                  </h3>
+                  <p className="text-gray-600 text-sm">
+                    Our AI achieves 95%+ accuracy in content summarization. The system continuously learns and improves,
+                    and you can always access the original content if needed.
+                  </p>
+                </div>
+
+                <div className="bg-gray-50 rounded-lg p-6">
+                  <h3 className="font-semibold text-gray-900 mb-3 flex items-center">
+                    <div className="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center mr-3">
+                      <span className="text-blue-600 text-sm font-bold">?</span>
+                    </div>
+                    Can I customize the categories?
+                  </h3>
+                  <p className="text-gray-600 text-sm">
+                    Pro users can create unlimited custom categories and even train the AI to automatically sort tabs
+                    into their preferred organizational system.
+                  </p>
+                </div>
+
+                <div className="bg-gray-50 rounded-lg p-6">
+                  <h3 className="font-semibold text-gray-900 mb-3 flex items-center">
+                    <div className="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center mr-3">
+                      <span className="text-blue-600 text-sm font-bold">?</span>
+                    </div>
+                    Is there a mobile version?
+                  </h3>
+                  <p className="text-gray-600 text-sm">
+                    Currently, AI Tab Saver is available as a Chrome extension for desktop. We're working on mobile apps
+                    and other browser support - stay tuned!
+                  </p>
+                </div>
+
+                <div className="bg-gray-50 rounded-lg p-6">
+                  <h3 className="font-semibold text-gray-900 mb-3 flex items-center">
+                    <div className="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center mr-3">
+                      <span className="text-blue-600 text-sm font-bold">?</span>
+                    </div>
+                    What if I need help or support?
+                  </h3>
+                  <p className="text-gray-600 text-sm">
+                    We offer comprehensive support through our help center, email support for all users, and priority
+                    support for Pro subscribers with 24-hour response time.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Contact Support */}
+            <div className="mt-12 text-center">
+              <p className="text-gray-600 mb-4">Still have questions?</p>
+              <Button variant="outline" className="border-2 bg-transparent">
+                <Mail className="mr-2 h-4 w-4" />
+                Contact Support
+              </Button>
+            </div>
           </div>
         </div>
       </section>
