@@ -6,6 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge"
 import { Progress } from "@/components/ui/progress"
 import Image from "next/image";
+import Dashboard from "./dashboard"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import {
   Sparkles,
@@ -130,7 +131,7 @@ export default function YouTubeHelperPage() {
                 </div>
                 <span className="text-xl font-bold text-gray-900">AI Tab Saver</span>
               </div>
-              <Button variant="ghost">Back to Dashboard</Button>
+              <Button variant="ghost" onClick={Dashboard}>Back to Dashboard</Button>
             </div>
           </div>
         </header>

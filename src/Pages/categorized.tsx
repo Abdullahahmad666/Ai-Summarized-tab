@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
+import Dashboard from './dashboard';
 import {
   Dialog,
   DialogContent,
@@ -164,7 +165,7 @@ export default function CategorizedTabsPage() {
               </div>
               <span className="text-xl font-bold text-gray-900">AI Tab Saver</span>
             </div>
-            <Button variant="ghost">Back to Dashboard</Button>
+            <Button variant="ghost"onClick={Dashboard}>Back to Dashboard</Button>
           </div>
         </div>
       </header>

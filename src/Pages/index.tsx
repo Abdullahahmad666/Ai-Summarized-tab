@@ -1,63 +1,31 @@
 "use client"
 
 import { useState } from "react"
+import LandingPage from "./landingpage"
+import LoginPage from "./login"
+import SignupPage from "./signup"
 import SubscriptionPlans from "./subscription"
 import ProfilePage from "./profile"
 import CategorizedTabsPage from "./categorized"
 import YouTubeHelperPage from "./youtube-helper"
 import Dashboard from "./dashboard"
-import Landingpage from "./landingpage"
-import { Button } from "@/components/ui/button"
 
-export default function AllPages() {
-  const [currentPage, setCurrentPage] = useState<"subscription" | "profile" | "tabs" | "youtube" | "dashboard" | "landingpage">(
-    "landingpage",
-  )
+
+export default function Home() {
+  const [currentPage, setCurrentPage] = useState<
+    "landing" | "login" | "signup" | "subscription" | "profile" | "tabs" | "youtube" | "dashboard"
+  >("landing")
 
   return (
-    <div className="min-h-screen bg-gray-100">
-      {/* Navigation */}
-      <div className="bg-white shadow-sm border-b">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex space-x-4">
-            <Button
-              variant={currentPage === "subscription" ? "default" : "outline"}
-              onClick={() => setCurrentPage("subscription")}
-            >
-              Subscription Plans
-            </Button>
-            <Button
-              variant={currentPage === "profile" ? "default" : "outline"}
-              onClick={() => setCurrentPage("profile")}
-            >
-              Profile
-            </Button>
-            <Button variant={currentPage === "tabs" ? "default" : "outline"} onClick={() => setCurrentPage("tabs")}>
-              Categorized Tabs
-            </Button>
-            <Button
-              variant={currentPage === "youtube" ? "default" : "outline"}
-              onClick={() => setCurrentPage("youtube")}
-            >
-              YouTube Helper
-            </Button>
-            <Button
-              variant={currentPage === "dashboard" ? "default" : "outline"}
-              onClick={() => setCurrentPage("dashboard")}
-            >
-              Dashboard
-            </Button>
-          </div>
-        </div>
-      </div>
-
-      {/* Page Content */}
+    <div className="min-h-screen">
+      {currentPage === "landing" && <LandingPage onNavigate={setCurrentPage} />}
+      {currentPage === "login" && <LoginPage />}
+      {currentPage === "signup" && <SignupPage />}
       {currentPage === "subscription" && <SubscriptionPlans />}
       {currentPage === "profile" && <ProfilePage />}
       {currentPage === "tabs" && <CategorizedTabsPage />}
       {currentPage === "youtube" && <YouTubeHelperPage />}
       {currentPage === "dashboard" && <Dashboard />}
-      {currentPage === "landingpage" && <Landingpage />}
     </div>
   )
 }

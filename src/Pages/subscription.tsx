@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Sparkles, Check, X, Crown, CreditCard, Shield, Zap } from "lucide-react"
+import Dashboard from "./dashboard"
 
 export default function SubscriptionPlans() {
   const [billingCycle, setBillingCycle] = useState<"monthly" | "yearly">("monthly")
@@ -33,7 +34,7 @@ export default function SubscriptionPlans() {
               </div>
               <span className="text-xl font-bold text-gray-900">AI Tab Saver</span>
             </div>
-            <Button variant="ghost">Back to Dashboard</Button>
+            <Button variant="ghost"onClick={Dashboard}>Back to Dashboard</Button>
           </div>
         </div>
       </header>

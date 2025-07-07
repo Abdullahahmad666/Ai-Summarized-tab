@@ -9,6 +9,7 @@ import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Progress } from "@/components/ui/progress"
 import { Sparkles, User, Mail, Crown, Settings, BarChart3, FileText, Save, ExternalLink, Calendar } from "lucide-react"
+import Dashboard from "./dashboard"
 
 export default function ProfilePage() {
   const [preferences, setPreferences] = useState({
@@ -84,7 +85,7 @@ export default function ProfilePage() {
               </div>
               <span className="text-xl font-bold text-gray-900">AI Tab Saver</span>
             </div>
-            <Button variant="ghost">Back to Dashboard</Button>
+            <Button variant="ghost" onClick={Dashboard}>Back to Dashboard</Button>
           </div>
         </div>
       </header>

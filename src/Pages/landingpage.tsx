@@ -1,3 +1,5 @@
+"use client"
+
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -20,8 +22,17 @@ import {
   Linkedin,
 } from "lucide-react"
 import Link from "next/link"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
+import { User } from "lucide-react"
 
-export default function LandingPage() {
+interface LandingPageProps {
+  onNavigate?: (
+    page: "landing" | "login" | "signup" | "subscription" | "profile" | "tabs" | "youtube" | "dashboard",
+  ) => void
+}
+
+export default function LandingPage({ onNavigate }: LandingPageProps) {
+  
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
       {/* Header */}
@@ -53,10 +64,28 @@ export default function LandingPage() {
               </Link>
             </nav>
 
-            <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700">
-              <Chrome className="mr-2 h-4 w-4" />
-              Install Now
-            </Button>
+            <div className="flex items-center space-x-3">
+              <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700">
+                <Chrome className="mr-2 h-4 w-4" />
+                Install Now
+              </Button>
+
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button size="sm" variant="outline" className="rounded-full w-10 h-10 p-0 bg-transparent">
+                    <User className="h-4 w-4" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" sideOffset={8} className="w-48">
+                  <DropdownMenuItem onClick={() => onNavigate?.("profile")}>Profile</DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => onNavigate?.("login")}>Login</DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => onNavigate?.("signup")}>Sign Up</DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => onNavigate?.("tabs")}>My Tabs</DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => onNavigate?.("youtube")}>YouTube Helper</DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => onNavigate?.("dashboard")}>Dashboard</DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
           </div>
         </div>
       </header>
