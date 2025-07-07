@@ -6,11 +6,12 @@ import ProfilePage from "./profile"
 import CategorizedTabsPage from "./categorized"
 import YouTubeHelperPage from "./youtube-helper"
 import Dashboard from "./dashboard"
+import Landingpage from "./landingpage"
 import { Button } from "@/components/ui/button"
 
 export default function AllPages() {
-  const [currentPage, setCurrentPage] = useState<"subscription" | "profile" | "tabs" | "youtube" | "dashboard">(
-    "subscription",
+  const [currentPage, setCurrentPage] = useState<"subscription" | "profile" | "tabs" | "youtube" | "dashboard" | "landingpage">(
+    "landingpage",
   )
 
   return (
@@ -56,6 +57,7 @@ export default function AllPages() {
       {currentPage === "tabs" && <CategorizedTabsPage />}
       {currentPage === "youtube" && <YouTubeHelperPage />}
       {currentPage === "dashboard" && <Dashboard />}
+      {currentPage === "landingpage" && <Landingpage />}
     </div>
   )
 }
