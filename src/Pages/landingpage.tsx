@@ -329,6 +329,9 @@ export default function Component() {
           </div>
         </div>
       </section>
+      <div className="bg-red-500 text-white p-4">
+  If you see red background, Tailwind is working!
+</div>
 
       {/* Final CTA Section */}
       <section className="py-20 bg-gradient-to-r from-blue-600 to-purple-600">
