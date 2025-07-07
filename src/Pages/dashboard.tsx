@@ -175,7 +175,7 @@ export default function Dashboard() {
             {/* Welcome Section */}
             <div className="text-center mb-8">
               <h1 className="text-3xl font-bold text-gray-900 mb-2">Welcome back, John!</h1>
-              <p className="text-gray-600">Here's what's happening with your saved tabs</p>
+              <p className="text-gray-600">Here&#39;s what&#39;s happening with your saved tabs</p>
             </div>
 
             {/* Stats Cards */}

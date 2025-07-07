@@ -341,7 +341,7 @@ export default function Component() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button size="lg" className="bg-white text-blue-600 hover:bg-gray-100">
               <Chrome className="mr-2 h-5 w-5" />
-              Install Now - It's Free
+              Install Now - It&#39;s Free
             </Button>
             <Button
               size="lg"

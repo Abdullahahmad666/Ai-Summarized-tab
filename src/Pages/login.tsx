@@ -210,7 +210,7 @@ export default function LoginPage({ onSwitchToSignup }: LoginPageProps) {
 
             {/* Sign Up Link */}
             <div className="text-center text-sm">
-              <span className="text-gray-600">Don't have an account? </span>
+              <span className="text-gray-600">Don&#39;t have an account? </span>
               <button
                 type="button"
                 onClick={onSwitchToSignup}

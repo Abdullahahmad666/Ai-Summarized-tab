@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import Image from "next/image";
 
 interface SavedTab {
   id: string
@@ -80,7 +81,7 @@ const Popup = () => {
 
   const openDashboard = () => {
     if (typeof window !== "undefined" && window.chrome?.runtime) {
-      window.chrome.tabs.create({ url: window.chrome.runtime.getURL("dashboard.html") })
+      window.chrome.tabs.create({ url: window.chrome.runtime.getURL("dashboard.tsx") })
     }
   }
 
@@ -217,7 +218,7 @@ const Popup = () => {
                   <div className="flex items-center gap-3 flex-1 min-w-0">
                     <div className="flex-shrink-0 w-4 h-4 flex items-center justify-center">
                       {tab.favicon ? (
-                        <img
+                        <Image
                           src={tab.favicon || "/placeholder.svg"}
                           alt=""
                           width="16"
@@ -286,7 +287,7 @@ const Popup = () => {
           <div className="text-base mt-0.5">⚡</div>
           <div className="flex-1">
             <p className="m-0 mb-1 font-medium text-amber-800 text-xs">
-              You've reached the free limit of 3 saved tabs.
+              You&#39;ve reached the free limit of 3 saved tabs.
             </p>
             <span className="text-xs text-amber-700">Upgrade for unlimited saves, AI summaries, and more.</span>
           </div>

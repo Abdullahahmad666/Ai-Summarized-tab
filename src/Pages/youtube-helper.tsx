@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Progress } from "@/components/ui/progress"
+import Image from "next/image";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import {
   Sparkles,
@@ -104,7 +105,7 @@ export default function YouTubeHelperPage() {
     // Handle save logic here
   }
 
-  const renderTextWithTooltips = (text: string) => {
+ /* const renderTextWithTooltips = (text: string) => {
     let result = text
     keyTerms.forEach((term) => {
       const regex = new RegExp(`\\b${term.term}\\b`, "gi")
@@ -114,7 +115,7 @@ export default function YouTubeHelperPage() {
       )
     })
     return result
-  }
+  } */
 
   return (
     <TooltipProvider>
@@ -142,7 +143,7 @@ export default function YouTubeHelperPage() {
               <Card className="shadow-lg">
                 <CardContent className="p-0">
                   <div className="relative aspect-video bg-gray-900 rounded-t-lg overflow-hidden">
-                    <img
+                    <Image
                       src={videoData.thumbnail || "/placeholder.svg"}
                       alt={videoData.title}
                       className="w-full h-full object-cover"
@@ -280,7 +281,7 @@ export default function YouTubeHelperPage() {
                         </TooltipTrigger>
                         <TooltipContent>
                           <p className="max-w-xs">
-                            JavaScript functions that start with 'use' and can call other hooks, allowing you to extract
+                            JavaScript functions that start with &#39;use&#39; and can call other hooks, allowing you to extract
                             component logic into reusable functions.
                           </p>
                         </TooltipContent>
