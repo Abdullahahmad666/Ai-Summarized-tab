@@ -165,7 +165,7 @@ export default function CategorizedTabsPage() {
               </div>
               <span className="text-xl font-bold text-gray-900">AI Tab Saver</span>
             </div>
-            <Button variant="ghost"onClick={Dashboard}>Back to Dashboard</Button>
+            <Button variant="ghost">Back to Dashboard</Button>
           </div>
         </div>
       </header>
