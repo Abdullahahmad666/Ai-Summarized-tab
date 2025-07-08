@@ -1,16 +1,18 @@
-// vite-popup/vite.config.ts
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import path from 'path'
+import { resolve } from 'path'
 
 export default defineConfig({
+  base: './', // ✅ This is the fix!
   plugins: [react()],
+  define: {
+    'process.env': {}, // optional if some lib tries to access process
+  },
   build: {
-    outDir: '../extension',
-    emptyOutDir: true,
+    outDir: 'dist',
     rollupOptions: {
       input: {
-        popup: path.resolve(__dirname, 'popup.html'),
+        popup: resolve(__dirname, 'popup.html'),
       },
     },
   },

@@ -1,7 +1,6 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import Image from "next/image";
 import "./index.css"
 
 interface SavedTab {
@@ -72,7 +71,7 @@ const Popup = () => {
 
   const openLandingPage = () => {
     if (typeof window !== "undefined" && window.chrome?.tabs) {
-      window.chrome.tabs.create({ url: "https://aitabsaver.app" })
+      window.chrome.tabs.create({ url: "http://localhost:3000" })
     }
   }
 
@@ -215,7 +214,7 @@ const Popup = () => {
                   <div className="flex items-center gap-3 flex-1 min-w-0">
                     <div className="flex-shrink-0 w-4 h-4 flex items-center justify-center">
                       {tab.favicon ? (
-                        <Image
+                        <img
                           src={tab.favicon || "/placeholder.svg"}
                           alt=""
                           width="16"
@@ -277,6 +276,8 @@ const Popup = () => {
           </div>
         )}
       </div>
+      
+
 
       {/* Upgrade Section */}
       <div className="p-4 bg-gradient-to-r from-yellow-100 to-amber-100 border-t border-slate-200">

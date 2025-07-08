@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export', // <-- This is required to use `next export`
+  
   distDir: 'out', 
   eslint: {
     ignoreDuringBuilds: true,
