@@ -13,11 +13,7 @@ interface SavedTab {
   category: string
 }
 
-declare global {
-  interface Window {
-    chrome: any
-  }
-}
+
 
 const Popup = () => {
   const [savedTabs, setSavedTabs] = useState<SavedTab[]>([])
