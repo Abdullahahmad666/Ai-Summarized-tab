@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import {
   Sparkles,
   BarChart3,
@@ -20,15 +21,14 @@ import {
   Clock,
   Zap,
 } from "lucide-react"
+import { useRouter } from "next/router"
 
-// Import the individual page components
-import SubscriptionPlans from "./subscription"
-import ProfilePage from "./profile"
-import CategorizedTabsPage from "./categorized"
-import YouTubeHelperPage from "./youtube-helper"
+
+
 
 export default function Dashboard() {
   const [activeTab, setActiveTab] = useState("overview")
+  const router = useRouter()
 
   // Mock data for dashboard overview
   const stats = {
@@ -140,6 +140,34 @@ export default function Dashboard() {
                 <Crown className="mr-1 h-3 w-3" />
                 Pro
               </Badge>
+                <div className="flex justify-end items-center space-x-4">
+  
+<DropdownMenu>
+    <DropdownMenuTrigger asChild>
+      <Button
+        size="sm"
+        variant="outline"
+        className="rounded-full w-10 h-10 p-0 bg-transparent"
+      >
+        <User className="h-4 w-4" />
+      </Button>
+    </DropdownMenuTrigger>
+    <DropdownMenuContent
+      align="end"
+      sideOffset={8}
+      className="w-48 bg-white shadow-md border"
+    >
+      <DropdownMenuItem onClick={() => router.push("/landingpage")}>Home</DropdownMenuItem>
+      <DropdownMenuItem onClick={() => router.push("/profile")}>Profile</DropdownMenuItem>
+      <DropdownMenuItem onClick={() => router.push("/dashboard")}>Dashboard</DropdownMenuItem>
+      <DropdownMenuItem onClick={() => router.push("/login")}>Login</DropdownMenuItem>
+      <DropdownMenuItem onClick={() => router.push("/signup")}>Sign Up</DropdownMenuItem>
+      <DropdownMenuItem onClick={() => router.push("/categorized")}>My Tabs</DropdownMenuItem>
+      <DropdownMenuItem onClick={() => router.push("/youtube-helper")}>YouTube Helper</DropdownMenuItem>
+      <DropdownMenuItem onClick={() => router.push("/subscription")}>Subscription</DropdownMenuItem>
+    </DropdownMenuContent>
+  </DropdownMenu>
+</div>
             </div>
           </div>
         </div>
@@ -151,22 +179,6 @@ export default function Dashboard() {
             <TabsTrigger value="overview" className="flex items-center gap-2">
               <BarChart3 className="h-4 w-4" />
               <span className="hidden sm:inline">Overview</span>
-            </TabsTrigger>
-            <TabsTrigger value="tabs" className="flex items-center gap-2">
-              <FileText className="h-4 w-4" />
-              <span className="hidden sm:inline">My Tabs</span>
-            </TabsTrigger>
-            <TabsTrigger value="youtube" className="flex items-center gap-2">
-              <Video className="h-4 w-4" />
-              <span className="hidden sm:inline">YouTube</span>
-            </TabsTrigger>
-            <TabsTrigger value="profile" className="flex items-center gap-2">
-              <User className="h-4 w-4" />
-              <span className="hidden sm:inline">Profile</span>
-            </TabsTrigger>
-            <TabsTrigger value="subscription" className="flex items-center gap-2">
-              <CreditCard className="h-4 w-4" />
-              <span className="hidden sm:inline">Plans</span>
             </TabsTrigger>
           </TabsList>
 
@@ -297,22 +309,7 @@ export default function Dashboard() {
             </div>
           </TabsContent>
 
-          {/* Other Tabs */}
-          <TabsContent value="tabs">
-            <CategorizedTabsPage />
-          </TabsContent>
-
-          <TabsContent value="youtube">
-            <YouTubeHelperPage />
-          </TabsContent>
-
-          <TabsContent value="profile">
-            <ProfilePage />
-          </TabsContent>
-
-          <TabsContent value="subscription">
-            <SubscriptionPlans />
-          </TabsContent>
+          
         </Tabs>
       </div>
     </div>

@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
 import { useRouter } from "next/navigation";
-import Dashboard from './dashboard';
+
 import {
   Dialog,
   DialogContent,
@@ -47,13 +47,9 @@ interface Category {
   count: number
   color: string
 }
-interface Categorized {
-  onNavigate?: (
-    page: "landing" | "login" | "signup" | "subscription" | "profile" | "tabs" | "youtube" | "dashboard",
-  ) => void
-}
 
-export default function CategorizedTabsPage({ onNavigate }: Categorized) {
+
+export default function CategorizedTabsPage() {
   const [searchQuery, setSearchQuery] = useState("")
   const [selectedCategory, setSelectedCategory] = useState("all")
   const [isCreateCategoryOpen, setIsCreateCategoryOpen] = useState(false)
@@ -178,12 +174,12 @@ export default function CategorizedTabsPage({ onNavigate }: Categorized) {
               <span className="text-xl font-bold text-gray-900">AI Tab Saver</span>
               
             </div>
-            <div className="flex justify-end items-center space-x-4">
+             <div className="flex justify-end items-center space-x-4">
   <Button variant="ghost" onClick={handleBackClick}>
     Back to Dashboard
   </Button>
 
-  <DropdownMenu>
+       <DropdownMenu>
     <DropdownMenuTrigger asChild>
       <Button
         size="sm"
@@ -198,12 +194,14 @@ export default function CategorizedTabsPage({ onNavigate }: Categorized) {
       sideOffset={8}
       className="w-48 bg-white shadow-md border"
     >
-      <DropdownMenuItem onClick={() => onNavigate?.("profile")}>Profile</DropdownMenuItem>
-      <DropdownMenuItem onClick={() => onNavigate?.("login")}>Login</DropdownMenuItem>
-      <DropdownMenuItem onClick={() => onNavigate?.("signup")}>Sign Up</DropdownMenuItem>
-      <DropdownMenuItem onClick={() => onNavigate?.("tabs")}>My Tabs</DropdownMenuItem>
-      <DropdownMenuItem onClick={() => onNavigate?.("youtube")}>YouTube Helper</DropdownMenuItem>
-      <DropdownMenuItem onClick={() => onNavigate?.("dashboard")}>Dashboard</DropdownMenuItem>
+      <DropdownMenuItem onClick={() => router.push("/landingpage")}>Home</DropdownMenuItem>
+      <DropdownMenuItem onClick={() => router.push("/profile")}>Profile</DropdownMenuItem>
+      <DropdownMenuItem onClick={() => router.push("/dashboard")}>Dashboard</DropdownMenuItem>
+      <DropdownMenuItem onClick={() => router.push("/login")}>Login</DropdownMenuItem>
+      <DropdownMenuItem onClick={() => router.push("/signup")}>Sign Up</DropdownMenuItem>
+      <DropdownMenuItem onClick={() => router.push("/categorized")}>My Tabs</DropdownMenuItem>
+      <DropdownMenuItem onClick={() => router.push("/youtube-helper")}>YouTube Helper</DropdownMenuItem>
+      <DropdownMenuItem onClick={() => router.push("/subscription")}>Subscription</DropdownMenuItem>
     </DropdownMenuContent>
   </DropdownMenu>
 </div>
@@ -272,7 +270,7 @@ export default function CategorizedTabsPage({ onNavigate }: Categorized) {
                     <Button variant="outline" onClick={() => setIsCreateCategoryOpen(false)}>
                       Cancel
                     </Button>
-                    <Button onClick={handleCreateCategory}>Create Category</Button>
+                    <Button className="bg-gradient-to-r from-blue-600 to-purple-600" onClick={handleCreateCategory}>Create Category</Button>
                   </div>
                 </div>
               </DialogContent>

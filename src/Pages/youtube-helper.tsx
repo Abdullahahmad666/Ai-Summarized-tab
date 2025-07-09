@@ -5,10 +5,9 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Progress } from "@/components/ui/progress"
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/navigation"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import Image from "next/image";
-import Dashboard from "./dashboard"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import {
   Sparkles,
@@ -28,14 +27,11 @@ import {
   Video,
 } from "lucide-react"
 
- interface Youtube {
-  onNavigate?: (
-    page: "landing" | "login" | "signup" | "subscription" | "profile" | "tabs" | "youtube" | "dashboard",
-  ) => void
-}
 
-export default function YouTubeHelperPage({ onNavigate }: Youtube) {
+export default function YouTubeHelperPage() {
   const [isSaved, setIsSaved] = useState(false)
+  
+  
 
   // Mock YouTube video data
   const videoData = {
@@ -149,7 +145,7 @@ export default function YouTubeHelperPage({ onNavigate }: Youtube) {
     Back to Dashboard
   </Button>
 
-  <DropdownMenu>
+        <DropdownMenu>
     <DropdownMenuTrigger asChild>
       <Button
         size="sm"
@@ -164,12 +160,14 @@ export default function YouTubeHelperPage({ onNavigate }: Youtube) {
       sideOffset={8}
       className="w-48 bg-white shadow-md border"
     >
-      <DropdownMenuItem onClick={() => onNavigate?.("profile")}>Profile</DropdownMenuItem>
-      <DropdownMenuItem onClick={() => onNavigate?.("login")}>Login</DropdownMenuItem>
-      <DropdownMenuItem onClick={() => onNavigate?.("signup")}>Sign Up</DropdownMenuItem>
-      <DropdownMenuItem onClick={() => onNavigate?.("tabs")}>My Tabs</DropdownMenuItem>
-      <DropdownMenuItem onClick={() => onNavigate?.("youtube")}>YouTube Helper</DropdownMenuItem>
-      <DropdownMenuItem onClick={() => onNavigate?.("dashboard")}>Dashboard</DropdownMenuItem>
+      <DropdownMenuItem onClick={() => router.push("/landingpage")}>Home</DropdownMenuItem>
+      <DropdownMenuItem onClick={() => router.push("/profile")}>Profile</DropdownMenuItem>
+      <DropdownMenuItem onClick={() => router.push("/dashboard")}>Dashboard</DropdownMenuItem>
+      <DropdownMenuItem onClick={() => router.push("/login")}>Login</DropdownMenuItem>
+      <DropdownMenuItem onClick={() => router.push("/signup")}>Sign Up</DropdownMenuItem>
+      <DropdownMenuItem onClick={() => router.push("/categorized")}>My Tabs</DropdownMenuItem>
+      <DropdownMenuItem onClick={() => router.push("/youtube-helper")}>YouTube Helper</DropdownMenuItem>
+      <DropdownMenuItem onClick={() => router.push("/subscription")}>Subscription</DropdownMenuItem>
     </DropdownMenuContent>
   </DropdownMenu>
 </div>

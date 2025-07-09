@@ -11,15 +11,11 @@ import { Progress } from "@/components/ui/progress"
 import { useRouter } from "next/navigation";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { Sparkles, User, Mail, Crown, Settings, BarChart3, FileText, Save, ExternalLink, Calendar } from "lucide-react"
-import Dashboard from "./dashboard"
 
- interface Profile {
-  onNavigate?: (
-    page: "landing" | "login" | "signup" | "subscription" | "profile" | "tabs" | "youtube" | "dashboard",
-  ) => void
-}
 
-export default function ProfilePage({ onNavigate }: Profile) {
+
+
+export default function ProfilePage() {
   const [preferences, setPreferences] = useState({
     autoSave: true,
     language: "english",
@@ -98,12 +94,12 @@ export default function ProfilePage({ onNavigate }: Profile) {
               </div>
               <span className="text-xl font-bold text-gray-900">AI Tab Saver</span>
             </div>
-             <div className="flex justify-end items-center space-x-4">
+               <div className="flex justify-end items-center space-x-4">
   <Button variant="ghost" onClick={handleBackClick}>
     Back to Dashboard
   </Button>
 
-  <DropdownMenu>
+        <DropdownMenu>
     <DropdownMenuTrigger asChild>
       <Button
         size="sm"
@@ -118,12 +114,14 @@ export default function ProfilePage({ onNavigate }: Profile) {
       sideOffset={8}
       className="w-48 bg-white shadow-md border"
     >
-      <DropdownMenuItem onClick={() => onNavigate?.("profile")}>Profile</DropdownMenuItem>
-      <DropdownMenuItem onClick={() => onNavigate?.("login")}>Login</DropdownMenuItem>
-      <DropdownMenuItem onClick={() => onNavigate?.("signup")}>Sign Up</DropdownMenuItem>
-      <DropdownMenuItem onClick={() => onNavigate?.("tabs")}>My Tabs</DropdownMenuItem>
-      <DropdownMenuItem onClick={() => onNavigate?.("youtube")}>YouTube Helper</DropdownMenuItem>
-      <DropdownMenuItem onClick={() => onNavigate?.("dashboard")}>Dashboard</DropdownMenuItem>
+      <DropdownMenuItem onClick={() => router.push("/landingpage")}>Home</DropdownMenuItem>
+      <DropdownMenuItem onClick={() => router.push("/profile")}>Profile</DropdownMenuItem>
+      <DropdownMenuItem onClick={() => router.push("/dashboard")}>Dashboard</DropdownMenuItem>
+      <DropdownMenuItem onClick={() => router.push("/login")}>Login</DropdownMenuItem>
+      <DropdownMenuItem onClick={() => router.push("/signup")}>Sign Up</DropdownMenuItem>
+      <DropdownMenuItem onClick={() => router.push("/categorized")}>My Tabs</DropdownMenuItem>
+      <DropdownMenuItem onClick={() => router.push("/youtube-helper")}>YouTube Helper</DropdownMenuItem>
+      <DropdownMenuItem onClick={() => router.push("/subscription")}>Subscription</DropdownMenuItem>
     </DropdownMenuContent>
   </DropdownMenu>
 </div>

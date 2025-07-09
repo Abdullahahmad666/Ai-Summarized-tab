@@ -9,13 +9,9 @@ import { Sparkles, Check, X, Crown,User, CreditCard, Shield, Zap } from "lucide-
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import Dashboard from "./dashboard"
 
- interface Subscription {
-  onNavigate?: (
-    page: "landing" | "login" | "signup" | "subscription" | "profile" | "tabs" | "youtube" | "dashboard",
-  ) => void
-}
 
-export default function SubscriptionPlans({ onNavigate }: Subscription) {
+
+export default function SubscriptionPlans() {
   const [billingCycle, setBillingCycle] = useState<"monthly" | "yearly">("monthly")
   const [selectedPlan, setSelectedPlan] = useState<"free" | "pro" | null>(null)
 
@@ -46,12 +42,12 @@ export default function SubscriptionPlans({ onNavigate }: Subscription) {
               </div>
               <span className="text-xl font-bold text-gray-900">AI Tab Saver</span>
             </div>
-            <div className="flex justify-end items-center space-x-4">
+              <div className="flex justify-end items-center space-x-4">
   <Button variant="ghost" onClick={handleBackClick}>
     Back to Dashboard
   </Button>
 
-  <DropdownMenu>
+        <DropdownMenu>
     <DropdownMenuTrigger asChild>
       <Button
         size="sm"
@@ -66,12 +62,14 @@ export default function SubscriptionPlans({ onNavigate }: Subscription) {
       sideOffset={8}
       className="w-48 bg-white shadow-md border"
     >
-      <DropdownMenuItem onClick={() => onNavigate?.("profile")}>Profile</DropdownMenuItem>
-      <DropdownMenuItem onClick={() => onNavigate?.("login")}>Login</DropdownMenuItem>
-      <DropdownMenuItem onClick={() => onNavigate?.("signup")}>Sign Up</DropdownMenuItem>
-      <DropdownMenuItem onClick={() => onNavigate?.("tabs")}>My Tabs</DropdownMenuItem>
-      <DropdownMenuItem onClick={() => onNavigate?.("youtube")}>YouTube Helper</DropdownMenuItem>
-      <DropdownMenuItem onClick={() => onNavigate?.("dashboard")}>Dashboard</DropdownMenuItem>
+      <DropdownMenuItem onClick={() => router.push("/landingpage")}>Home</DropdownMenuItem>
+      <DropdownMenuItem onClick={() => router.push("/profile")}>Profile</DropdownMenuItem>
+      <DropdownMenuItem onClick={() => router.push("/dashboard")}>Dashboard</DropdownMenuItem>
+      <DropdownMenuItem onClick={() => router.push("/login")}>Login</DropdownMenuItem>
+      <DropdownMenuItem onClick={() => router.push("/signup")}>Sign Up</DropdownMenuItem>
+      <DropdownMenuItem onClick={() => router.push("/categorized")}>My Tabs</DropdownMenuItem>
+      <DropdownMenuItem onClick={() => router.push("/youtube-helper")}>YouTube Helper</DropdownMenuItem>
+      <DropdownMenuItem onClick={() => router.push("/subscription")}>Subscription</DropdownMenuItem>
     </DropdownMenuContent>
   </DropdownMenu>
 </div>
@@ -132,15 +130,15 @@ export default function SubscriptionPlans({ onNavigate }: Subscription) {
                 </div>
                 <div className="flex items-center">
                   <Check className="h-5 w-5 text-green-600 mr-3 flex-shrink-0" />
-                  <span>10 AI tooltips per day</span>
+                  <span>5 AI tooltips per day</span>
                 </div>
                 <div className="flex items-center">
                   <X className="h-5 w-5 text-gray-400 mr-3 flex-shrink-0" />
-                  <span className="text-gray-500">No categorization</span>
+                  <span className="text-gray-500">2 categorization</span>
                 </div>
                 <div className="flex items-center">
                   <X className="h-5 w-5 text-gray-400 mr-3 flex-shrink-0" />
-                  <span className="text-gray-500">No AI summaries</span>
+                  <span className="text-gray-500">2 AI summaries</span>
                 </div>
                 <div className="flex items-center">
                   <X className="h-5 w-5 text-gray-400 mr-3 flex-shrink-0" />
@@ -175,7 +173,7 @@ export default function SubscriptionPlans({ onNavigate }: Subscription) {
               <CardTitle className="text-2xl font-bold">Pro Plan</CardTitle>
               <CardDescription>Unlock the full power of AI</CardDescription>
               <div className="text-4xl font-bold text-gray-900 mt-4">
-                ${billingCycle === "monthly" ? "9.99" : "95.99"}
+                ${billingCycle === "monthly" ? "14.99" : "155.99"}
               </div>
               <p className="text-gray-600">per {billingCycle === "monthly" ? "month" : "year"}</p>
               {billingCycle === "yearly" && <p className="text-sm text-green-600 font-medium">Save $23.89 annually!</p>}
@@ -293,7 +291,7 @@ export default function SubscriptionPlans({ onNavigate }: Subscription) {
                       </tr>
                       <tr className="bg-gray-50">
                         <td className="px-6 py-4 text-sm text-gray-900">AI Tooltips</td>
-                        <td className="px-6 py-4 text-center text-sm text-gray-600">10/day</td>
+                        <td className="px-6 py-4 text-center text-sm text-gray-600">5/day</td>
                         <td className="px-6 py-4 text-center text-sm text-gray-600">Unlimited</td>
                       </tr>
                       <tr>

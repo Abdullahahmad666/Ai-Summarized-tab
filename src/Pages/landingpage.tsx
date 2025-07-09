@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import { useRouter } from "next/navigation"
 import {
   Chrome,
   Sparkles,
@@ -25,13 +26,10 @@ import Link from "next/link"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { User } from "lucide-react"
 
-interface LandingPageProps {
-  onNavigate?: (
-    page: "landing" | "login" | "signup" | "subscription" | "profile" | "tabs" | "youtube" | "dashboard",
-  ) => void
-}
 
-export default function LandingPage({ onNavigate }: LandingPageProps) {
+
+export default function LandingPage() {
+  const router = useRouter()
   
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
@@ -71,20 +69,30 @@ export default function LandingPage({ onNavigate }: LandingPageProps) {
               </Button>
 
               <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button size="sm" variant="outline" className="rounded-full w-10 h-10 p-0 bg-transparent">
-                    <User className="h-4 w-4" />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" sideOffset={8} className="w-48 bg-white shadow-md border">
-                  <DropdownMenuItem onClick={() => onNavigate?.("profile")}>Profile</DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => onNavigate?.("login")}>Login</DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => onNavigate?.("signup")}>Sign Up</DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => onNavigate?.("tabs")}>My Tabs</DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => onNavigate?.("youtube")}>YouTube Helper</DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => onNavigate?.("dashboard")}>Dashboard</DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
+    <DropdownMenuTrigger asChild>
+      <Button
+        size="sm"
+        variant="outline"
+        className="rounded-full w-10 h-10 p-0 bg-transparent"
+      >
+        <User className="h-4 w-4" />
+      </Button>
+    </DropdownMenuTrigger>
+    <DropdownMenuContent
+      align="end"
+      sideOffset={8}
+      className="w-48 bg-white shadow-md border"
+    >
+      <DropdownMenuItem onClick={() => router.push("/landingpage")}>Home</DropdownMenuItem>
+      <DropdownMenuItem onClick={() => router.push("/profile")}>Profile</DropdownMenuItem>
+      <DropdownMenuItem onClick={() => router.push("/dashboard")}>Dashboard</DropdownMenuItem>
+      <DropdownMenuItem onClick={() => router.push("/login")}>Login</DropdownMenuItem>
+      <DropdownMenuItem onClick={() => router.push("/signup")}>Sign Up</DropdownMenuItem>
+      <DropdownMenuItem onClick={() => router.push("/categorized")}>My Tabs</DropdownMenuItem>
+      <DropdownMenuItem onClick={() => router.push("/youtube-helper")}>YouTube Helper</DropdownMenuItem>
+      <DropdownMenuItem onClick={() => router.push("/subscription")}>Subscription</DropdownMenuItem>
+    </DropdownMenuContent>
+  </DropdownMenu>
             </div>
           </div>
         </div>
@@ -399,7 +407,7 @@ export default function LandingPage({ onNavigate }: LandingPageProps) {
               <CardContent className="space-y-4">
                 <div className="flex items-center">
                   <Check className="h-5 w-5 text-green-600 mr-3" />
-                  <span>Up to 10 tab summaries per day</span>
+                  <span>Up to 2 tab summaries per day</span>
                 </div>
                 <div className="flex items-center">
                   <Check className="h-5 w-5 text-green-600 mr-3" />
@@ -407,7 +415,7 @@ export default function LandingPage({ onNavigate }: LandingPageProps) {
                 </div>
                 <div className="flex items-center">
                   <Check className="h-5 w-5 text-green-600 mr-3" />
-                  <span>3 auto-categories</span>
+                  <span>2 auto-categories</span>
                 </div>
                 <div className="flex items-center">
                   <X className="h-5 w-5 text-gray-400 mr-3" />
@@ -438,7 +446,7 @@ export default function LandingPage({ onNavigate }: LandingPageProps) {
               </div>
               <CardHeader className="text-center pb-8">
                 <CardTitle className="text-2xl font-bold">Pro</CardTitle>
-                <div className="text-4xl font-bold text-gray-900 mt-4">$9.99</div>
+                <div className="text-4xl font-bold text-gray-900 mt-4">$14.99</div>
                 <p className="text-gray-600 mt-2">per month</p>
               </CardHeader>
               <CardContent className="space-y-4">
