@@ -224,11 +224,14 @@ export default function ProfilePage() {
                         <Label htmlFor="auto-save">Tab Auto-Save</Label>
                         <p className="text-sm text-gray-500">Automatically save tabs when browsing</p>
                       </div>
-                      <Switch
-                        id="auto-save"
-                        checked={preferences.autoSave}
-                        onCheckedChange={(checked) => handlePreferenceChange("autoSave", checked)}
-                      />
+                      
+                          <Switch
+                            id="auto-save"
+                            checked={preferences.autoSave}
+                            onCheckedChange={(checked) => handlePreferenceChange("autoSave", checked)}
+                          />
+
+
                     </div>
 
                     <div className="flex items-center justify-between">
