@@ -17,6 +17,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "tailwind.config.js", "next.config.js", "vite-popup/src/popup.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "tailwind.config.js", "next.config.js", "vite-popup/src/components/Popup.jsx"],
   "exclude": ["node_modules"]
 }

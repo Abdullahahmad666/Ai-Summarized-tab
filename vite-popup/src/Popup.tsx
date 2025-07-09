@@ -1,26 +1,48 @@
+
 "use client"
+
+import type React from "react"
 
 import { useState, useEffect } from "react"
 import "./index.css"
 
-const Popup = () => {
-  const [savedTabs, setSavedTabs] = useState([])
-  const [expandedTab, setExpandedTab] = useState(null)
-  const [loading, setLoading] = useState(true)
+interface SavedTab {
+  id: string
+  title: string
+  url: string
+  favicon?: string
+  savedAt: string
+  category: string
+}
+
+interface ChromeTab {
+  title?: string
+  url?: string
+  favIconUrl?: string
+}
+
+interface ChromeStorage {
+  savedTabs?: SavedTab[]
+}
+
+const Popup: React.FC = () => {
+  const [savedTabs, setSavedTabs] = useState<SavedTab[]>([])
+  const [expandedTab, setExpandedTab] = useState<string | null>(null)
+  const [loading, setLoading] = useState<boolean>(true)
 
   useEffect(() => {
     loadSavedTabs()
   }, [])
 
-  const loadSavedTabs = async () => {
+  const loadSavedTabs = async (): Promise<void> => {
     try {
       if (typeof window !== "undefined" && window.chrome?.storage) {
-        const result = await window.chrome.storage.local.get(["savedTabs"])
+        const result = (await window.chrome.storage.local.get(["savedTabs"])) as ChromeStorage
         const tabs = result.savedTabs || []
 
         // Sort by saved date (newest first) and limit to 3 for free users
         const sortedTabs = tabs
-          .sort((a, b) => new Date(b.savedAt).getTime() - new Date(a.savedAt).getTime())
+          .sort((a: SavedTab, b: SavedTab) => new Date(b.savedAt).getTime() - new Date(a.savedAt).getTime())
           .slice(0, 3)
 
         setSavedTabs(sortedTabs)
@@ -32,22 +54,22 @@ const Popup = () => {
     }
   }
 
-  const handleTabClick = (tabId) => {
+  const handleTabClick = (tabId: string): void => {
     setExpandedTab(expandedTab === tabId ? null : tabId)
   }
 
-  const openTab = (url) => {
+  const openTab = (url: string): void => {
     if (typeof window !== "undefined" && window.chrome?.tabs) {
       window.chrome.tabs.create({ url })
     }
   }
 
-  const deleteTab = async (tabId) => {
+  const deleteTab = async (tabId: string): Promise<void> => {
     try {
       if (typeof window !== "undefined" && window.chrome?.storage) {
-        const result = await window.chrome.storage.local.get(["savedTabs"])
+        const result = (await window.chrome.storage.local.get(["savedTabs"])) as ChromeStorage
         const tabs = result.savedTabs || []
-        const updatedTabs = tabs.filter((tab) => tab.id !== tabId)
+        const updatedTabs = tabs.filter((tab: SavedTab) => tab.id !== tabId)
 
         await window.chrome.storage.local.set({ savedTabs: updatedTabs })
         setSavedTabs(updatedTabs.slice(0, 3))
@@ -58,37 +80,37 @@ const Popup = () => {
     }
   }
 
-  const openLandingPage = () => {
+  const openLandingPage = (): void => {
     if (typeof window !== "undefined" && window.chrome?.tabs) {
       window.chrome.tabs.create({ url: "http://localhost:3000" })
     }
   }
 
-  const openDashboard = () => {
+  const openDashboard = (): void => {
     if (typeof window !== "undefined" && window.chrome?.runtime) {
-      window.chrome.tabs.create({ url: window.chrome.runtime.getURL("dashboard.jsx") })
+      window.chrome.tabs.create({ url: window.chrome.runtime.getURL("dashboard.tsx") })
     }
   }
 
-  const saveCurrentTab = async () => {
+  const saveCurrentTab = async (): Promise<void> => {
     try {
       if (typeof window !== "undefined" && window.chrome?.tabs) {
-        const [activeTab] = await window.chrome.tabs.query({ active: true, currentWindow: true })
+        const [activeTab] = (await window.chrome.tabs.query({ active: true, currentWindow: true })) as ChromeTab[]
 
-        const newTab = {
+        const newTab: SavedTab = {
           id: Date.now().toString(),
-          title: activeTab.title,
-          url: activeTab.url,
+          title: activeTab.title || "Untitled",
+          url: activeTab.url || "",
           favicon: activeTab.favIconUrl,
           savedAt: new Date().toISOString(),
           category: "Uncategorized",
         }
 
-        const result = await window.chrome.storage.local.get(["savedTabs"])
+        const result = (await window.chrome.storage.local.get(["savedTabs"])) as ChromeStorage
         const existingTabs = result.savedTabs || []
 
         // Check if tab already exists
-        const tabExists = existingTabs.some((tab) => tab.url === activeTab.url)
+        const tabExists = existingTabs.some((tab: SavedTab) => tab.url === activeTab.url)
         if (tabExists) {
           return
         }
@@ -104,7 +126,7 @@ const Popup = () => {
     }
   }
 
-  const formatDate = (dateString) => {
+  const formatDate = (dateString: string): string => {
     const date = new Date(dateString)
     const now = new Date()
     const diffTime = Math.abs(now.getTime() - date.getTime())
@@ -116,12 +138,12 @@ const Popup = () => {
     return date.toLocaleDateString()
   }
 
-  const truncateTitle = (title, maxLength = 45) => {
+  const truncateTitle = (title: string, maxLength = 45): string => {
     return title.length > maxLength ? title.substring(0, maxLength) + "..." : title
   }
 
   // CSS Styles
-  const styles = {
+  const styles: { [key: string]: React.CSSProperties } = {
     container: {
       width: "380px",
       minHeight: "500px",
@@ -425,8 +447,12 @@ const Popup = () => {
           style={styles.dashboardButton}
           onClick={openDashboard}
           title="Open Dashboard"
-          onMouseEnter={(e) => (e.target.style.background = "rgba(255, 255, 255, 0.3)")}
-          onMouseLeave={(e) => (e.target.style.background = "rgba(255, 255, 255, 0.2)")}
+          onMouseEnter={(e: React.MouseEvent<HTMLButtonElement>) =>
+            ((e.target as HTMLButtonElement).style.background = "rgba(255, 255, 255, 0.3)")
+          }
+          onMouseLeave={(e: React.MouseEvent<HTMLButtonElement>) =>
+            ((e.target as HTMLButtonElement).style.background = "rgba(255, 255, 255, 0.2)")
+          }
         >
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <rect x="3" y="3" width="7" height="7" />
@@ -442,15 +468,19 @@ const Popup = () => {
         <button
           style={styles.saveButton}
           onClick={saveCurrentTab}
-          onMouseEnter={(e) => {
-            e.target.style.transform = "translateY(-2px)"
-            e.target.style.boxShadow = "0 10px 25px rgba(37, 99, 235, 0.3)"
+          onMouseEnter={(e: React.MouseEvent<HTMLButtonElement>) => {
+            const target = e.target as HTMLButtonElement
+            target.style.transform = "translateY(-2px)"
+            target.style.boxShadow = "0 10px 25px rgba(37, 99, 235, 0.3)"
           }}
-          onMouseLeave={(e) => {
-            e.target.style.transform = "translateY(0)"
-            e.target.style.boxShadow = "none"
+          onMouseLeave={(e: React.MouseEvent<HTMLButtonElement>) => {
+            const target = e.target as HTMLButtonElement
+            target.style.transform = "translateY(0)"
+            target.style.boxShadow = "none"
           }}
-          onMouseDown={(e) => (e.target.style.transform = "translateY(0)")}
+          onMouseDown={(e: React.MouseEvent<HTMLButtonElement>) =>
+            ((e.target as HTMLButtonElement).style.transform = "translateY(0)")
+          }
         >
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" />
@@ -476,24 +506,30 @@ const Popup = () => {
           </div>
         ) : (
           <div style={styles.tabsContainer}>
-            {savedTabs.map((tab) => (
+            {savedTabs.map((tab: SavedTab) => (
               <div
                 key={tab.id}
                 style={styles.tabCard}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.boxShadow = "0 4px 6px -1px rgba(0, 0, 0, 0.1)"
-                  e.currentTarget.style.borderColor = "#cbd5e1"
+                onMouseEnter={(e: React.MouseEvent<HTMLDivElement>) => {
+                  const target = e.currentTarget as HTMLDivElement
+                  target.style.boxShadow = "0 4px 6px -1px rgba(0, 0, 0, 0.1)"
+                  target.style.borderColor = "#cbd5e1"
                 }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.boxShadow = "none"
-                  e.currentTarget.style.borderColor = "#e2e8f0"
+                onMouseLeave={(e: React.MouseEvent<HTMLDivElement>) => {
+                  const target = e.currentTarget as HTMLDivElement
+                  target.style.boxShadow = "none"
+                  target.style.borderColor = "#e2e8f0"
                 }}
               >
                 <div
                   style={styles.tabHeader}
                   onClick={() => handleTabClick(tab.id)}
-                  onMouseEnter={(e) => (e.target.style.backgroundColor = "#f8fafc")}
-                  onMouseLeave={(e) => (e.target.style.backgroundColor = "transparent")}
+                  onMouseEnter={(e: React.MouseEvent<HTMLDivElement>) =>
+                    ((e.target as HTMLDivElement).style.backgroundColor = "#f8fafc")
+                  }
+                  onMouseLeave={(e: React.MouseEvent<HTMLDivElement>) =>
+                    ((e.target as HTMLDivElement).style.backgroundColor = "transparent")
+                  }
                 >
                   <div style={styles.tabContent}>
                     <div style={styles.tabIcon}>
@@ -533,15 +569,17 @@ const Popup = () => {
                     <button
                       style={styles.actionButton}
                       onClick={() => openTab(tab.url)}
-                      onMouseEnter={(e) => {
-                        e.target.style.backgroundColor = "#2563eb"
-                        e.target.style.color = "white"
-                        e.target.style.borderColor = "#2563eb"
+                      onMouseEnter={(e: React.MouseEvent<HTMLButtonElement>) => {
+                        const target = e.target as HTMLButtonElement
+                        target.style.backgroundColor = "#2563eb"
+                        target.style.color = "white"
+                        target.style.borderColor = "#2563eb"
                       }}
-                      onMouseLeave={(e) => {
-                        e.target.style.backgroundColor = "white"
-                        e.target.style.color = "#64748b"
-                        e.target.style.borderColor = "#e2e8f0"
+                      onMouseLeave={(e: React.MouseEvent<HTMLButtonElement>) => {
+                        const target = e.target as HTMLButtonElement
+                        target.style.backgroundColor = "white"
+                        target.style.color = "#64748b"
+                        target.style.borderColor = "#e2e8f0"
                       }}
                     >
                       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -554,15 +592,17 @@ const Popup = () => {
                     <button
                       style={styles.actionButton}
                       onClick={() => deleteTab(tab.id)}
-                      onMouseEnter={(e) => {
-                        e.target.style.backgroundColor = "#ef4444"
-                        e.target.style.color = "white"
-                        e.target.style.borderColor = "#ef4444"
+                      onMouseEnter={(e: React.MouseEvent<HTMLButtonElement>) => {
+                        const target = e.target as HTMLButtonElement
+                        target.style.backgroundColor = "#ef4444"
+                        target.style.color = "white"
+                        target.style.borderColor = "#ef4444"
                       }}
-                      onMouseLeave={(e) => {
-                        e.target.style.backgroundColor = "white"
-                        e.target.style.color = "#64748b"
-                        e.target.style.borderColor = "#e2e8f0"
+                      onMouseLeave={(e: React.MouseEvent<HTMLButtonElement>) => {
+                        const target = e.target as HTMLButtonElement
+                        target.style.backgroundColor = "white"
+                        target.style.color = "#64748b"
+                        target.style.borderColor = "#e2e8f0"
                       }}
                     >
                       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -594,13 +634,15 @@ const Popup = () => {
         <button
           style={styles.upgradeButton}
           onClick={openLandingPage}
-          onMouseEnter={(e) => {
-            e.target.style.transform = "translateY(-2px)"
-            e.target.style.boxShadow = "0 10px 25px rgba(245, 158, 11, 0.3)"
+          onMouseEnter={(e: React.MouseEvent<HTMLButtonElement>) => {
+            const target = e.target as HTMLButtonElement
+            target.style.transform = "translateY(-2px)"
+            target.style.boxShadow = "0 10px 25px rgba(245, 158, 11, 0.3)"
           }}
-          onMouseLeave={(e) => {
-            e.target.style.transform = "translateY(0)"
-            e.target.style.boxShadow = "none"
+          onMouseLeave={(e: React.MouseEvent<HTMLButtonElement>) => {
+            const target = e.target as HTMLButtonElement
+            target.style.transform = "translateY(0)"
+            target.style.boxShadow = "none"
           }}
         >
           <div style={styles.upgradeButtonContent}>
@@ -615,8 +657,12 @@ const Popup = () => {
         <button
           style={styles.footerButton}
           onClick={openDashboard}
-          onMouseEnter={(e) => (e.target.style.color = "#2563eb")}
-          onMouseLeave={(e) => (e.target.style.color = "#64748b")}
+          onMouseEnter={(e: React.MouseEvent<HTMLButtonElement>) =>
+            ((e.target as HTMLButtonElement).style.color = "#2563eb")
+          }
+          onMouseLeave={(e: React.MouseEvent<HTMLButtonElement>) =>
+            ((e.target as HTMLButtonElement).style.color = "#64748b")
+          }
         >
           Dashboard
         </button>
@@ -624,19 +670,18 @@ const Popup = () => {
         <button
           style={styles.footerButton}
           onClick={openLandingPage}
-          onMouseEnter={(e) => (e.target.style.color = "#2563eb")}
-          onMouseLeave={(e) => (e.target.style.color = "#64748b")}
+          onMouseEnter={(e: React.MouseEvent<HTMLButtonElement>) =>
+            ((e.target as HTMLButtonElement).style.color = "#2563eb")
+          }
+          onMouseLeave={(e: React.MouseEvent<HTMLButtonElement>) =>
+            ((e.target as HTMLButtonElement).style.color = "#64748b")
+          }
         >
           Upgrade
         </button>
       </div>
 
-      <style jsx>{`
-        @keyframes spin {
-          0% { transform: rotate(0deg); }
-          100% { transform: rotate(360deg); }
-        }
-      `}</style>
+      
     </div>
   )
 }

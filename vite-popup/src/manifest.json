@@ -1,0 +1,17 @@
+{
+  "manifest_version": 3,
+  "name": "AI Tab Saver",
+  "version": "1.0.0",
+  "description": "Save, summarize & categorize your tabs with AI-powered Chrome extension",
+  "permissions": ["storage", "tabs", "activeTab"],
+  "host_permissions": ["<all_urls>"],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "AI Tab Saver"
+    
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'"
+  }
+}
+
