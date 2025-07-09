@@ -76,7 +76,7 @@ export default function LandingPage({ onNavigate }: LandingPageProps) {
                     <User className="h-4 w-4" />
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" sideOffset={8} className="w-48">
+                <DropdownMenuContent align="end" sideOffset={8} className="w-48 bg-white shadow-md border">
                   <DropdownMenuItem onClick={() => onNavigate?.("profile")}>Profile</DropdownMenuItem>
                   <DropdownMenuItem onClick={() => onNavigate?.("login")}>Login</DropdownMenuItem>
                   <DropdownMenuItem onClick={() => onNavigate?.("signup")}>Sign Up</DropdownMenuItem>

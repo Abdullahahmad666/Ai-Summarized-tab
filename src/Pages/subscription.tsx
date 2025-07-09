@@ -4,10 +4,18 @@ import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Sparkles, Check, X, Crown, CreditCard, Shield, Zap } from "lucide-react"
+import { useRouter } from "next/navigation";
+import { Sparkles, Check, X, Crown,User, CreditCard, Shield, Zap } from "lucide-react"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import Dashboard from "./dashboard"
 
-export default function SubscriptionPlans() {
+ interface Subscription {
+  onNavigate?: (
+    page: "landing" | "login" | "signup" | "subscription" | "profile" | "tabs" | "youtube" | "dashboard",
+  ) => void
+}
+
+export default function SubscriptionPlans({ onNavigate }: Subscription) {
   const [billingCycle, setBillingCycle] = useState<"monthly" | "yearly">("monthly")
   const [selectedPlan, setSelectedPlan] = useState<"free" | "pro" | null>(null)
 
@@ -21,6 +29,10 @@ export default function SubscriptionPlans() {
     console.log(`Payment with ${method}`)
     // Handle payment integration here
   }
+  const router = useRouter();
+    const handleBackClick = () => {
+      router.push('/dashboard');
+    }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
@@ -34,7 +46,35 @@ export default function SubscriptionPlans() {
               </div>
               <span className="text-xl font-bold text-gray-900">AI Tab Saver</span>
             </div>
-            <Button variant="ghost"onClick={Dashboard}>Back to Dashboard</Button>
+            <div className="flex justify-end items-center space-x-4">
+  <Button variant="ghost" onClick={handleBackClick}>
+    Back to Dashboard
+  </Button>
+
+  <DropdownMenu>
+    <DropdownMenuTrigger asChild>
+      <Button
+        size="sm"
+        variant="outline"
+        className="rounded-full w-10 h-10 p-0 bg-transparent"
+      >
+        <User className="h-4 w-4" />
+      </Button>
+    </DropdownMenuTrigger>
+    <DropdownMenuContent
+      align="end"
+      sideOffset={8}
+      className="w-48 bg-white shadow-md border"
+    >
+      <DropdownMenuItem onClick={() => onNavigate?.("profile")}>Profile</DropdownMenuItem>
+      <DropdownMenuItem onClick={() => onNavigate?.("login")}>Login</DropdownMenuItem>
+      <DropdownMenuItem onClick={() => onNavigate?.("signup")}>Sign Up</DropdownMenuItem>
+      <DropdownMenuItem onClick={() => onNavigate?.("tabs")}>My Tabs</DropdownMenuItem>
+      <DropdownMenuItem onClick={() => onNavigate?.("youtube")}>YouTube Helper</DropdownMenuItem>
+      <DropdownMenuItem onClick={() => onNavigate?.("dashboard")}>Dashboard</DropdownMenuItem>
+    </DropdownMenuContent>
+  </DropdownMenu>
+</div>
           </div>
         </div>
       </header>

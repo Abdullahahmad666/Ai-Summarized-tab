@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Progress } from "@/components/ui/progress"
+import { useRouter } from "next/navigation";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import Image from "next/image";
 import Dashboard from "./dashboard"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
@@ -20,12 +22,19 @@ import {
   Share,
   Download,
   Brain,
+  User,
   Lightbulb,
   FileText,
   Video,
 } from "lucide-react"
 
-export default function YouTubeHelperPage() {
+ interface Youtube {
+  onNavigate?: (
+    page: "landing" | "login" | "signup" | "subscription" | "profile" | "tabs" | "youtube" | "dashboard",
+  ) => void
+}
+
+export default function YouTubeHelperPage({ onNavigate }: Youtube) {
   const [isSaved, setIsSaved] = useState(false)
 
   // Mock YouTube video data
@@ -105,6 +114,10 @@ export default function YouTubeHelperPage() {
     console.log("Saved to learning stack:", videoData.title)
     // Handle save logic here
   }
+  const router = useRouter();
+    const handleBackClick = () => {
+      router.push('/dashboard');
+    }
 
  /* const renderTextWithTooltips = (text: string) => {
     let result = text
@@ -131,7 +144,35 @@ export default function YouTubeHelperPage() {
                 </div>
                 <span className="text-xl font-bold text-gray-900">AI Tab Saver</span>
               </div>
-              <Button variant="ghost" onClick={Dashboard}>Back to Dashboard</Button>
+              <div className="flex justify-end items-center space-x-4">
+  <Button variant="ghost" onClick={handleBackClick}>
+    Back to Dashboard
+  </Button>
+
+  <DropdownMenu>
+    <DropdownMenuTrigger asChild>
+      <Button
+        size="sm"
+        variant="outline"
+        className="rounded-full w-10 h-10 p-0 bg-transparent"
+      >
+        <User className="h-4 w-4" />
+      </Button>
+    </DropdownMenuTrigger>
+    <DropdownMenuContent
+      align="end"
+      sideOffset={8}
+      className="w-48 bg-white shadow-md border"
+    >
+      <DropdownMenuItem onClick={() => onNavigate?.("profile")}>Profile</DropdownMenuItem>
+      <DropdownMenuItem onClick={() => onNavigate?.("login")}>Login</DropdownMenuItem>
+      <DropdownMenuItem onClick={() => onNavigate?.("signup")}>Sign Up</DropdownMenuItem>
+      <DropdownMenuItem onClick={() => onNavigate?.("tabs")}>My Tabs</DropdownMenuItem>
+      <DropdownMenuItem onClick={() => onNavigate?.("youtube")}>YouTube Helper</DropdownMenuItem>
+      <DropdownMenuItem onClick={() => onNavigate?.("dashboard")}>Dashboard</DropdownMenuItem>
+    </DropdownMenuContent>
+  </DropdownMenu>
+</div>
             </div>
           </div>
         </header>

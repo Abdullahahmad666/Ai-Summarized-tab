@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
+import { useRouter } from "next/navigation";
 import Dashboard from './dashboard';
 import {
   Dialog,
@@ -15,6 +16,8 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
+import { User } from "lucide-react"
 import { Label } from "@/components/ui/label"
 import {
   Sparkles,
@@ -44,8 +47,13 @@ interface Category {
   count: number
   color: string
 }
+interface Categorized {
+  onNavigate?: (
+    page: "landing" | "login" | "signup" | "subscription" | "profile" | "tabs" | "youtube" | "dashboard",
+  ) => void
+}
 
-export default function CategorizedTabsPage() {
+export default function CategorizedTabsPage({ onNavigate }: Categorized) {
   const [searchQuery, setSearchQuery] = useState("")
   const [selectedCategory, setSelectedCategory] = useState("all")
   const [isCreateCategoryOpen, setIsCreateCategoryOpen] = useState(false)
@@ -138,6 +146,10 @@ export default function CategorizedTabsPage() {
     console.log("Deleting tab:", tabId)
     // Handle delete logic here
   }
+  const router = useRouter();
+  const handleBackClick = () => {
+    router.push('/dashboard');
+  }
 
   const handleMoveTab = (tabId: number, newCategory: string) => {
     console.log("Moving tab:", tabId, "to category:", newCategory)
@@ -164,8 +176,39 @@ export default function CategorizedTabsPage() {
                 <Sparkles className="h-5 w-5 text-white" />
               </div>
               <span className="text-xl font-bold text-gray-900">AI Tab Saver</span>
+              
             </div>
-            <Button variant="ghost">Back to Dashboard</Button>
+            <div className="flex justify-end items-center space-x-4">
+  <Button variant="ghost" onClick={handleBackClick}>
+    Back to Dashboard
+  </Button>
+
+  <DropdownMenu>
+    <DropdownMenuTrigger asChild>
+      <Button
+        size="sm"
+        variant="outline"
+        className="rounded-full w-10 h-10 p-0 bg-transparent"
+      >
+        <User className="h-4 w-4" />
+      </Button>
+    </DropdownMenuTrigger>
+    <DropdownMenuContent
+      align="end"
+      sideOffset={8}
+      className="w-48 bg-white shadow-md border"
+    >
+      <DropdownMenuItem onClick={() => onNavigate?.("profile")}>Profile</DropdownMenuItem>
+      <DropdownMenuItem onClick={() => onNavigate?.("login")}>Login</DropdownMenuItem>
+      <DropdownMenuItem onClick={() => onNavigate?.("signup")}>Sign Up</DropdownMenuItem>
+      <DropdownMenuItem onClick={() => onNavigate?.("tabs")}>My Tabs</DropdownMenuItem>
+      <DropdownMenuItem onClick={() => onNavigate?.("youtube")}>YouTube Helper</DropdownMenuItem>
+      <DropdownMenuItem onClick={() => onNavigate?.("dashboard")}>Dashboard</DropdownMenuItem>
+    </DropdownMenuContent>
+  </DropdownMenu>
+</div>
+
+            
           </div>
         </div>
       </header>
@@ -190,11 +233,11 @@ export default function CategorizedTabsPage() {
               />
             </div>
             <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-              <SelectTrigger className="w-full sm:w-48">
-                <Filter className="mr-2 h-4 w-4" />
+              <SelectTrigger className="w-full sm:w-48 bg-white shadow-md border ">
+                <Filter className="mr-2 h-4 w-4 " />
                 <SelectValue placeholder="Filter by category" />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className=" bg-white shadow-md border ">
                 <SelectItem value="all">All Categories</SelectItem>
                 {categories.map((category) => (
                   <SelectItem key={category.name} value={category.name}>
@@ -210,14 +253,14 @@ export default function CategorizedTabsPage() {
                   New Category
                 </Button>
               </DialogTrigger>
-              <DialogContent>
+              <DialogContent className="bg-white shadow-md border">
                 <DialogHeader>
                   <DialogTitle>Create New Category</DialogTitle>
                   <DialogDescription>Add a new category to organize your tabs</DialogDescription>
                 </DialogHeader>
                 <div className="space-y-4">
                   <div>
-                    <Label htmlFor="category-name">Category Name</Label>
+                    <Label htmlFor="category-name" className="space-y-4">Category Name</Label>
                     <Input
                       id="category-name"
                       placeholder="Enter category name"

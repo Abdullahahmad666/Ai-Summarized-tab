@@ -8,10 +8,18 @@ import { Switch } from "@/components/ui/switch"
 import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Progress } from "@/components/ui/progress"
+import { useRouter } from "next/navigation";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { Sparkles, User, Mail, Crown, Settings, BarChart3, FileText, Save, ExternalLink, Calendar } from "lucide-react"
 import Dashboard from "./dashboard"
 
-export default function ProfilePage() {
+ interface Profile {
+  onNavigate?: (
+    page: "landing" | "login" | "signup" | "subscription" | "profile" | "tabs" | "youtube" | "dashboard",
+  ) => void
+}
+
+export default function ProfilePage({ onNavigate }: Profile) {
   const [preferences, setPreferences] = useState({
     autoSave: true,
     language: "english",
@@ -72,6 +80,11 @@ export default function ProfilePage() {
     console.log("Saving preferences:", preferences)
     // Handle save preferences logic here
   }
+  const router = useRouter();
+    const handleBackClick = () => {
+      router.push('/dashboard');
+    }
+ 
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
@@ -85,7 +98,35 @@ export default function ProfilePage() {
               </div>
               <span className="text-xl font-bold text-gray-900">AI Tab Saver</span>
             </div>
-            <Button variant="ghost" onClick={Dashboard}>Back to Dashboard</Button>
+             <div className="flex justify-end items-center space-x-4">
+  <Button variant="ghost" onClick={handleBackClick}>
+    Back to Dashboard
+  </Button>
+
+  <DropdownMenu>
+    <DropdownMenuTrigger asChild>
+      <Button
+        size="sm"
+        variant="outline"
+        className="rounded-full w-10 h-10 p-0 bg-transparent"
+      >
+        <User className="h-4 w-4" />
+      </Button>
+    </DropdownMenuTrigger>
+    <DropdownMenuContent
+      align="end"
+      sideOffset={8}
+      className="w-48 bg-white shadow-md border"
+    >
+      <DropdownMenuItem onClick={() => onNavigate?.("profile")}>Profile</DropdownMenuItem>
+      <DropdownMenuItem onClick={() => onNavigate?.("login")}>Login</DropdownMenuItem>
+      <DropdownMenuItem onClick={() => onNavigate?.("signup")}>Sign Up</DropdownMenuItem>
+      <DropdownMenuItem onClick={() => onNavigate?.("tabs")}>My Tabs</DropdownMenuItem>
+      <DropdownMenuItem onClick={() => onNavigate?.("youtube")}>YouTube Helper</DropdownMenuItem>
+      <DropdownMenuItem onClick={() => onNavigate?.("dashboard")}>Dashboard</DropdownMenuItem>
+    </DropdownMenuContent>
+  </DropdownMenu>
+</div>
           </div>
         </div>
       </header>
