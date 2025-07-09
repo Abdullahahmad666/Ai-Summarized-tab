@@ -1,5 +1,5 @@
 import './App.css'
-import Popup from './popup.tsx'
+import Popup from ''
 
 function App() {
   return (
