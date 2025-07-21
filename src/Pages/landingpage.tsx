@@ -367,11 +367,11 @@ export default function LandingPage() {
           {/* Stats Section */}
           <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
             <div className="text-center">
-              <div className="text-3xl font-bold text-gray-900 mb-2">50K+</div>
+              <div className="text-3xl font-bold text-gray-900 mb-2">2K+</div>
               <p className="text-gray-600">Active Users</p>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-gray-900 mb-2">1M+</div>
+              <div className="text-3xl font-bold text-gray-900 mb-2">10K+</div>
               <p className="text-gray-600">Tabs Saved</p>
             </div>
             <div className="text-center">
