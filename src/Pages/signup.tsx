@@ -9,12 +9,13 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Sparkles, Eye, EyeOff, Mail, Lock, User, AlertCircle, Check } from "lucide-react"
+import { useRouter } from "next/navigation"
 
-interface SignupPageProps {
-  onSwitchToLogin?: () => void
-}
 
-export default function SignupPage({ onSwitchToLogin }: SignupPageProps) {
+
+
+export default function SignupPage() {
+  const router = useRouter()
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -25,6 +26,14 @@ export default function SignupPage({ onSwitchToLogin }: SignupPageProps) {
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
+  // go to login page
+  const handleswitchtologin = () => {
+    router.push("/login")
+  }
+  //go to LandingPage
+  const handleswitchtolandingpage = () => {
+    router.push("/landingpage")
+  }
 
   const validateForm = () => {
     const newErrors: Record<string, string> = {}
@@ -129,7 +138,7 @@ export default function SignupPage({ onSwitchToLogin }: SignupPageProps) {
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-r from-blue-600 to-purple-600">
               <Sparkles className="h-6 w-6 text-white" />
             </div>
-            <span className="text-2xl font-bold text-gray-900">AI Tab Saver</span>
+            <span onClick={handleswitchtolandingpage} className="text-2xl font-bold text-gray-900">AI Tab Saver</span>
           </div>
           <h1 className="text-2xl font-bold text-gray-900 mb-2">Create your account</h1>
           <p className="text-gray-600">Get started with AI-powered tab management</p>
@@ -330,7 +339,7 @@ export default function SignupPage({ onSwitchToLogin }: SignupPageProps) {
               <span className="text-gray-600">Already have an account? </span>
               <button
                 type="button"
-                onClick={onSwitchToLogin}
+                onClick={handleswitchtologin}
                 className="text-blue-600 hover:text-blue-800 hover:underline font-medium"
               >
                 Sign in

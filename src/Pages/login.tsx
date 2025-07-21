@@ -10,13 +10,12 @@ import { Label } from "@/components/ui/label"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Sparkles, Eye, EyeOff, Mail, Lock, AlertCircle } from "lucide-react"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 
 
-interface LoginPageProps {
-  onSwitchToSignup?: () => void
-}
 
-export default function LoginPage({ onSwitchToSignup }: LoginPageProps) {
+export default function LoginPage() {
+  const router = useRouter()
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -24,6 +23,12 @@ export default function LoginPage({ onSwitchToSignup }: LoginPageProps) {
   const [errors, setErrors] = useState<Record<string, string>>({})
   const [showPassword, setShowPassword] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
+  const handleswitchtolandingpage = () => {
+    router.push("/landingpage")
+  }
+  const handleswitchtosignup = () => {
+    router.push("/signup")
+  }
 
   const validateForm = () => {
     const newErrors: Record<string, string> = {}
@@ -87,7 +92,7 @@ export default function LoginPage({ onSwitchToSignup }: LoginPageProps) {
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-r from-blue-600 to-purple-600">
               <Sparkles className="h-6 w-6 text-white" />
             </div>
-            <span className="text-2xl font-bold text-gray-900">AI Tab Saver</span>
+            <span  onClick={handleswitchtolandingpage} className="text-2xl font-bold text-gray-900">AI Tab Saver</span>
           </div>
           <h1 className="text-2xl font-bold text-gray-900 mb-2">Welcome back</h1>
           <p className="text-gray-600">Sign in to your account to continue</p>
@@ -214,7 +219,7 @@ export default function LoginPage({ onSwitchToSignup }: LoginPageProps) {
               <span className="text-gray-600">Don&#39;t have an account? </span>
               <button
                 type="button"
-                onClick={onSwitchToSignup}
+                onClick={handleswitchtosignup}
                 className="text-blue-600 hover:text-blue-800 hover:underline font-medium"
               >
                 Sign up

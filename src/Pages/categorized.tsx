@@ -258,7 +258,7 @@ export default function CategorizedTabsPage() {
                 </DialogHeader>
                 <div className="space-y-4">
                   <div>
-                    <Label htmlFor="category-name" className="space-y-4">Category Name</Label>
+                    <Label htmlFor="category-name" className="space-y-8 mb-3">Category Name</Label>
                     <Input
                       id="category-name"
                       placeholder="Enter category name"
