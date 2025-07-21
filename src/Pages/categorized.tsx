@@ -17,7 +17,7 @@ import {
 } from "@/components/ui/dialog"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
-import { User } from "lucide-react"
+import { User, Zap } from "lucide-react"
 import { Label } from "@/components/ui/label"
 import {
   Sparkles,
@@ -159,6 +159,10 @@ export default function CategorizedTabsPage() {
       setIsCreateCategoryOpen(false)
       // Handle create category logic here
     }
+  }
+
+  const handleSummarizeTab = () => {
+    router.push("/summarize-page");
   }
 
   return (
@@ -362,7 +366,7 @@ export default function CategorizedTabsPage() {
                     </CardHeader>
                     <CardContent className="pt-0">
                       <p className="text-xs text-gray-600 mb-3 line-clamp-3">{tab.summary}</p>
-                      <div className="flex items-center justify-between text-xs text-gray-500">
+                      <div className="flex items-center justify-between text-xs text-gray-500 mb-3">
                         <span className="flex items-center">
                           <Calendar className="mr-1 h-3 w-3" />
                           {tab.savedAt}
@@ -371,6 +375,13 @@ export default function CategorizedTabsPage() {
                           {tab.category}
                         </Badge>
                       </div>
+                      <Button
+                        onClick={() => handleSummarizeTab()}
+                        className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-xs py-2"
+                      >
+                        <Zap className="mr-1 h-3 w-3" />
+                        Summarize
+                      </Button>
                     </CardContent>
                   </Card>
                 ))}
