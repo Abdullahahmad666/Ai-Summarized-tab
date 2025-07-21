@@ -31,7 +31,9 @@ import Footer from '@/components/footer';
 
 export default function LandingPage() {
   const router = useRouter()
-  
+  const handleContact = () => {
+    router.push('/contact-page');
+  }
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
       {/* Header */}
@@ -61,6 +63,12 @@ export default function LandingPage() {
               <Link href="#pricing" className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">
                 Pricing
               </Link>
+              <button
+                onClick={handleContact}
+                className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors"
+              >
+                Contact
+              </button>
             </nav>
 
             <div className="flex items-center space-x-3">
@@ -634,7 +642,7 @@ export default function LandingPage() {
             {/* Contact Support */}
             <div className="mt-12 text-center">
               <p className="text-gray-600 mb-4">Still have questions?</p>
-              <Button variant="outline" className="border-2 bg-transparent">
+              <Button onClick={handleContact} variant="outline" className="border-2 bg-transparent">
                 <Mail className="mr-2 h-4 w-4" />
                 Contact Support
               </Button>
