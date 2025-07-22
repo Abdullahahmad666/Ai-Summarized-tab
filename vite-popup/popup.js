@@ -7,6 +7,7 @@
   let savedTabs = []
   let expandedTab = null
   let loading = true
+  const MAX_FREE_TABS = 3
 
   // Initialize the popup
   function init() {
@@ -21,7 +22,9 @@
       const tabs = result.savedTabs || []
 
       // Sort by saved date (newest first) and limit to 3 for free users
-      savedTabs = tabs.sort((a, b) => new Date(b.savedAt).getTime() - new Date(a.savedAt).getTime()).slice(0, 3)
+      savedTabs = tabs
+        .sort((a, b) => new Date(b.savedAt).getTime() - new Date(a.savedAt).getTime())
+        .slice(0, MAX_FREE_TABS)
 
       loading = false
       render()
@@ -35,12 +38,29 @@
   // Save current active tab
   async function saveCurrentTab() {
     try {
+      // Check if we've reached the limit
+      if (savedTabs.length >= MAX_FREE_TABS) {
+        console.log("Cannot save more tabs - limit reached")
+        return
+      }
+
       const [activeTab] = await chrome.tabs.query({ active: true, currentWindow: true })
+
+      // Validate tab data
+      if (
+        !activeTab ||
+        !activeTab.url ||
+        activeTab.url.startsWith("chrome://") ||
+        activeTab.url.startsWith("chrome-extension://")
+      ) {
+        console.log("Cannot save this type of tab")
+        return
+      }
 
       const newTab = {
         id: Date.now().toString(),
         title: activeTab.title || "Untitled",
-        url: activeTab.url || "",
+        url: activeTab.url,
         favicon: activeTab.favIconUrl,
         savedAt: new Date().toISOString(),
         category: "Uncategorized",
@@ -49,9 +69,10 @@
       const result = await chrome.storage.local.get(["savedTabs"])
       const existingTabs = result.savedTabs || []
 
-      // Check if tab already exists
+      // Check if tab already exists (prevent duplicates)
       const tabExists = existingTabs.some((tab) => tab.url === activeTab.url)
       if (tabExists) {
+        console.log("Tab already exists")
         return
       }
 
@@ -89,10 +110,14 @@
   function openLandingPage() {
     chrome.tabs.create({ url: "http://localhost:3000" })
   }
+  function openSubscriptionPage() {
+    chrome.tabs.create({ url: "http://localhost:3000/subscription" })
+  }
+
 
   // Open dashboard
   function openDashboard() {
-    chrome.tabs.create({ url: "http://localhost:3000" })
+    chrome.tabs.create({ url: "http://localhost:3000/dashboard" })
   }
 
   // Toggle tab expansion
@@ -119,6 +144,19 @@
     return title.length > maxLength ? title.substring(0, maxLength) + "..." : title
   }
 
+  // Check if save button should be disabled
+  function isSaveDisabled() {
+    return savedTabs.length >= MAX_FREE_TABS
+  }
+
+  // Get save button text based on state
+  function getSaveButtonText() {
+    if (savedTabs.length >= MAX_FREE_TABS) {
+      return "Limit Reached"
+    }
+    return "Save Current Tab"
+  }
+
   // Setup event listeners
   function setupEventListeners() {
     // This will be called after render to attach event listeners
@@ -127,6 +165,8 @@
   // Render the popup UI
   function render() {
     const root = document.getElementById("root")
+    const isLimitReached = savedTabs.length >= MAX_FREE_TABS
+    const saveButtonDisabled = isSaveDisabled()
 
     if (loading) {
       root.innerHTML = `
@@ -154,7 +194,7 @@
             <div style="font-size: 18px;">✨</div>
             <span style="font-weight: 600; font-size: 16px; margin: 0;">AI Tab Saver</span>
           </div>
-          <button id="dashboard-btn" style="background: rgba(255, 255, 255, 0.2); border: none; border-radius: 6px; padding: 6px; color: white; cursor: pointer; transition: background-color 0.2s; display: flex; align-items: center; justify-content: center;" title="Open Dashboard">
+          <button id="dashboard-btn" style="background: rgba(255, 255, 255, 0.2); border: none; border-radius: 6px; padding: 6px; color: white; cursor: pointer; transition: background-color 0.2s; display: flex; align-items: center; justify-content: center;" title="Open Home">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <rect x="3" y="3" width="7" height="7" />
               <rect x="14" y="3" width="7" height="7" />
@@ -166,13 +206,19 @@
 
         <!-- Save Current Tab Button -->
         <div style="padding: 16px; border-bottom: 1px solid #e2e8f0;">
-          <button id="save-tab-btn" style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 12px; background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%); color: white; border: none; border-radius: 8px; font-weight: 500; cursor: pointer; transition: all 0.2s; font-size: 14px;">
+          <button id="save-tab-btn" 
+            style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 12px; 
+            background: ${saveButtonDisabled ? "linear-gradient(135deg, #94a3b8 0%, #64748b 100%)" : "linear-gradient(135deg, #2563eb 0%, #7c3aed 100%)"}; 
+            color: white; border: none; border-radius: 8px; font-weight: 500; 
+            cursor: ${saveButtonDisabled ? "not-allowed" : "pointer"}; 
+            transition: all 0.2s; font-size: 14px; opacity: ${saveButtonDisabled ? "0.6" : "1"};"
+            ${saveButtonDisabled ? "disabled" : ""}>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" />
               <polyline points="17,21 17,13 7,13 7,21" />
               <polyline points="7,3 7,8 15,8" />
             </svg>
-            Save Current Tab
+            ${getSaveButtonText()}
           </button>
         </div>
 
@@ -180,7 +226,7 @@
         <div style="flex: 1; padding: 0 20px; overflow-y: auto;">
           <div style="display: flex; align-items: center; justify-content: space-between; padding: 16px 0; border-bottom: 1px solid #e2e8f0; margin-bottom: 12px;">
             <h3 style="margin: 0; font-size: 16px; font-weight: 600; color: #1e293b;">Recent Saves</h3>
-            <span style="background: #e2e8f0; color: #64748b; padding: 2px 8px; border-radius: 12px; font-size: 12px; font-weight: 500;">${savedTabs.length}/3</span>
+            <span style="background: ${isLimitReached ? "#fef3c7" : "#e2e8f0"}; color: ${isLimitReached ? "#92400e" : "#64748b"}; padding: 2px 8px; border-radius: 12px; font-size: 12px; font-weight: 500;">${savedTabs.length}/${MAX_FREE_TABS}</span>
           </div>
 
           ${
@@ -204,7 +250,8 @@
                         ${
                           tab.favicon
                             ? `
-                          <img src="${tab.favicon}" alt="" width="16" height="16" style="border-radius: 2px;" />
+                          <img src="${tab.favicon}" alt="" width="16" height="16" style="border-radius: 2px;" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
+                          <div style="font-size: 12px; display: none;">🌐</div>
                         `
                             : `
                           <div style="font-size: 12px;">🌐</div>
@@ -259,23 +306,29 @@
           }
         </div>
 
-        <!-- Upgrade Section -->
-        <div style="padding: 16px; background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); border-top: 1px solid #e2e8f0;">
-          <div style="display: flex; align-items: flex-start; gap: 12px; margin-bottom: 12px;">
-            <div style="font-size: 16px; margin-top: 2px;">⚡</div>
-            <div style="flex: 1;">
-              <p style="margin: 0 0 4px 0; font-weight: 500; color: #92400e; font-size: 12px;">You've reached the free limit of 3 saved tabs.</p>
-              <span style="font-size: 12px; color: #a16207;">Upgrade for unlimited saves, AI summaries, and more.</span>
+        <!-- Upgrade Section - Only show when exactly 3 tabs are saved -->
+        ${
+          savedTabs.length === MAX_FREE_TABS
+            ? `
+          <div style="padding: 16px; background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); border-top: 1px solid #e2e8f0;">
+            <div style="display: flex; align-items: flex-start; gap: 12px; margin-bottom: 12px;">
+              <div style="font-size: 16px; margin-top: 2px;">⚡</div>
+              <div style="flex: 1;">
+                <p style="margin: 0 0 4px 0; font-weight: 500; color: #92400e; font-size: 12px;">You've reached the free limit of 3 saved tabs.</p>
+                <span style="font-size: 12px; color: #a16207;">Upgrade for unlimited saves, AI summaries, and more.</span>
+              </div>
             </div>
-          </div>
 
-          <button id="upgrade-btn" style="width: 100%; background: linear-gradient(135deg, #f59e0b 0%, #ea580c 100%); color: white; border: none; border-radius: 8px; padding: 12px; font-weight: 600; cursor: pointer; transition: all 0.2s;">
-            <div style="display: flex; align-items: center; justify-content: center; gap: 8px;">
-              <span style="font-size: 14px;">Unlock Full Access</span>
-              <div style="font-size: 16px;">👑</div>
-            </div>
-          </button>
-        </div>
+            <button id="upgrade-btn" style="width: 100%; background: linear-gradient(135deg, #f59e0b 0%, #ea580c 100%); color: white; border: none; border-radius: 8px; padding: 12px; font-weight: 600; cursor: pointer; transition: all 0.2s;">
+              <div style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                <span style="font-size: 14px;">Unlock Full Access</span>
+                <div style="font-size: 16px;">👑</div>
+              </div>
+            </button>
+          </div>
+        `
+            : ""
+        }
 
         <!-- Footer -->
         <div style="display: flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 20px; background: #f8fafc; border-top: 1px solid #e2e8f0;">
@@ -294,15 +347,19 @@
   function attachEventListeners() {
     // Save tab button
     const saveTabBtn = document.getElementById("save-tab-btn")
-    if (saveTabBtn) {
+    if (saveTabBtn && !saveTabBtn.disabled) {
       saveTabBtn.addEventListener("click", saveCurrentTab)
       saveTabBtn.addEventListener("mouseenter", (e) => {
-        e.target.style.transform = "translateY(-2px)"
-        e.target.style.boxShadow = "0 10px 25px rgba(37, 99, 235, 0.3)"
+        if (!e.target.disabled) {
+          e.target.style.transform = "translateY(-2px)"
+          e.target.style.boxShadow = "0 10px 25px rgba(37, 99, 235, 0.3)"
+        }
       })
       saveTabBtn.addEventListener("mouseleave", (e) => {
-        e.target.style.transform = "translateY(0)"
-        e.target.style.boxShadow = "none"
+        if (!e.target.disabled) {
+          e.target.style.transform = "translateY(0)"
+          e.target.style.boxShadow = "none"
+        }
       })
     }
 
@@ -310,7 +367,7 @@
     const dashboardBtn = document.getElementById("dashboard-btn")
     const footerDashboardBtn = document.getElementById("footer-dashboard-btn")
     if (dashboardBtn) {
-      dashboardBtn.addEventListener("click", openDashboard)
+      dashboardBtn.addEventListener("click", openLandingPage)
       dashboardBtn.addEventListener("mouseenter", (e) => {
         e.target.style.background = "rgba(255, 255, 255, 0.3)"
       })
@@ -332,7 +389,7 @@
     const upgradeBtn = document.getElementById("upgrade-btn")
     const footerUpgradeBtn = document.getElementById("footer-upgrade-btn")
     if (upgradeBtn) {
-      upgradeBtn.addEventListener("click", openLandingPage)
+      upgradeBtn.addEventListener("click", openSubscriptionPage)
       upgradeBtn.addEventListener("mouseenter", (e) => {
         e.target.style.transform = "translateY(-2px)"
         e.target.style.boxShadow = "0 10px 25px rgba(245, 158, 11, 0.3)"
@@ -343,7 +400,7 @@
       })
     }
     if (footerUpgradeBtn) {
-      footerUpgradeBtn.addEventListener("click", openLandingPage)
+      footerUpgradeBtn.addEventListener("click", openSubscriptionPage)
       footerUpgradeBtn.addEventListener("mouseenter", (e) => {
         e.target.style.color = "#2563eb"
       })
@@ -384,7 +441,10 @@
     const openTabBtns = document.querySelectorAll(".open-tab-btn")
     openTabBtns.forEach((btn) => {
       const url = btn.getAttribute("data-url")
-      btn.addEventListener("click", () => openTab(url))
+      btn.addEventListener("click", (e) => {
+        e.stopPropagation()
+        openTab(url)
+      })
       btn.addEventListener("mouseenter", (e) => {
         e.target.style.backgroundColor = "#2563eb"
         e.target.style.color = "white"
@@ -401,7 +461,10 @@
     const deleteTabBtns = document.querySelectorAll(".delete-tab-btn")
     deleteTabBtns.forEach((btn) => {
       const tabId = btn.getAttribute("data-tab-id")
-      btn.addEventListener("click", () => deleteTab(tabId))
+      btn.addEventListener("click", (e) => {
+        e.stopPropagation()
+        deleteTab(tabId)
+      })
       btn.addEventListener("mouseenter", (e) => {
         e.target.style.backgroundColor = "#ef4444"
         e.target.style.color = "white"
