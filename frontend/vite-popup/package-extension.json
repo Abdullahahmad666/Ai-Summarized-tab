@@ -1,0 +1,13 @@
+{
+  "name": "ai-tab-saver-extension",
+  "version": "1.0.0",
+  "description": "Chrome extension build files for AI Tab Saver",
+  "scripts": {
+    "build": "echo 'Extension files are ready for Chrome'",
+    "zip": "zip -r ai-tab-saver-extension.zip manifest.json popup.html popup.css popup.js icons/ README-Extension.md",
+    "install": "echo 'Load the extension folder in Chrome at chrome://extensions/'"
+  },
+  "keywords": ["chrome-extension", "tabs", "ai", "productivity"],
+  "author": "AI Tab Saver Team",
+  "license": "MIT"
+}
