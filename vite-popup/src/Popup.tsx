@@ -40,10 +40,10 @@ const Popup: React.FC = () => {
         const result = (await window.chrome.storage.local.get(["savedTabs"])) as ChromeStorage
         const tabs = result.savedTabs || []
 
-        // Sort by saved date (newest first) and limit to 3 for free users
+        // Sort by saved date (newest first) and limit to 5 for free users
         const sortedTabs = tabs
           .sort((a: SavedTab, b: SavedTab) => new Date(b.savedAt).getTime() - new Date(a.savedAt).getTime())
-          .slice(0, 3)
+          .slice(0, 5)
 
         setSavedTabs(sortedTabs)
       }
@@ -72,7 +72,7 @@ const Popup: React.FC = () => {
         const updatedTabs = tabs.filter((tab: SavedTab) => tab.id !== tabId)
 
         await window.chrome.storage.local.set({ savedTabs: updatedTabs })
-        setSavedTabs(updatedTabs.slice(0, 3))
+        setSavedTabs(updatedTabs.slice(0, 5))
         setExpandedTab(null)
       }
     } catch (error) {
@@ -495,7 +495,7 @@ const Popup: React.FC = () => {
       <div style={styles.tabsList}>
         <div style={styles.tabsHeader}>
           <h3 style={styles.tabsTitle}>Recent Saves</h3>
-          <span style={styles.tabsCount}>{savedTabs.length}/3</span>
+          <span style={styles.tabsCount}>{savedTabs.length}/5</span>
         </div>
 
         {savedTabs.length === 0 ? (
@@ -626,7 +626,7 @@ const Popup: React.FC = () => {
         <div style={styles.upgradeContent}>
           <div style={styles.upgradeIcon}>⚡</div>
           <div style={styles.upgradeText}>
-            <p style={styles.upgradeTitle}>You've reached the free limit of 3 saved tabs.</p>
+            <p style={styles.upgradeTitle}>You've reached the free limit of 5 saved tabs.</p>
             <span style={styles.upgradeSubtitle}>Upgrade for unlimited saves, AI summaries, and more.</span>
           </div>
         </div>
