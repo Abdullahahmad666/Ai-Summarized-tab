@@ -5,3 +5,4 @@ declare global {
     chrome: typeof chrome;
   }
 }
+declare module '*.css';
