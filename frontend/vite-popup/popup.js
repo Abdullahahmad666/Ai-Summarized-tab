@@ -7,7 +7,7 @@
   let savedTabs = []
   let expandedTab = null
   let loading = true
-  const MAX_FREE_TABS = 3
+  const MAX_FREE_TABS = 5
 
   // Initialize the popup
   function init() {
@@ -108,16 +108,16 @@
 
   // Open landing page
   function openLandingPage() {
-    chrome.tabs.create({ url: "http://localhost:3000" })
+    chrome.tabs.create({ url: "https://ai-summarized-tab-4dik.vercel.app/landingpage" })
   }
   function openSubscriptionPage() {
-    chrome.tabs.create({ url: "http://localhost:3000/subscription" })
+    chrome.tabs.create({ url: "https://ai-summarized-tab-4dik.vercel.app/subscription" })
   }
 
 
   // Open dashboard
   function openDashboard() {
-    chrome.tabs.create({ url: "http://localhost:3000/dashboard" })
+    chrome.tabs.create({ url: "https://ai-summarized-tab-4dik.vercel.app/dashboard" })
   }
 
   // Toggle tab expansion
@@ -306,7 +306,7 @@
           }
         </div>
 
-        <!-- Upgrade Section - Only show when exactly 3 tabs are saved -->
+        <!-- Upgrade Section - Only show when exactly 5 tabs are saved -->
         ${
           savedTabs.length === MAX_FREE_TABS
             ? `
@@ -314,7 +314,7 @@
             <div style="display: flex; align-items: flex-start; gap: 12px; margin-bottom: 12px;">
               <div style="font-size: 16px; margin-top: 2px;">⚡</div>
               <div style="flex: 1;">
-                <p style="margin: 0 0 4px 0; font-weight: 500; color: #92400e; font-size: 12px;">You've reached the free limit of 3 saved tabs.</p>
+                <p style="margin: 0 0 4px 0; font-weight: 500; color: #92400e; font-size: 12px;">You've reached the free limit of 5 saved tabs.</p>
                 <span style="font-size: 12px; color: #a16207;">Upgrade for unlimited saves, AI summaries, and more.</span>
               </div>
             </div>
