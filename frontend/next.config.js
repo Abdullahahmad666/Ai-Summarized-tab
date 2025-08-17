@@ -5,8 +5,7 @@ const nextConfig = {
     return config
   },
   
-  
-  distDir: 'out', 
+
   eslint: {
     ignoreDuringBuilds: true,
   },
