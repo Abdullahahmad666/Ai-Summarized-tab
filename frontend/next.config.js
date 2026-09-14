@@ -4,6 +4,12 @@ const nextConfig = {
   // to opt in explicitly (replaces the old `webpack(config)` hook).
   turbopack: {},
 
+  // The OG card reads its font files at request time; make sure they are
+  // traced into the serverless bundle for /api/og.
+  outputFileTracingIncludes: {
+    '/api/og': ['./src/fonts/**/*'],
+  },
+
   images: {
     remotePatterns: [
       {
