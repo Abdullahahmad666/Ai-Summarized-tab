@@ -11,6 +11,7 @@ import { Progress } from "../components/ui/progress"
 import { useRouter } from "next/navigation";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "../components/ui/dropdown-menu"
 import { Sparkles, User, Mail, Crown, Settings, BarChart3, FileText, Save, ExternalLink, Calendar } from "lucide-react"
+import Seo from "../components/seo"
 
 
 
@@ -87,6 +88,7 @@ export default function ProfilePage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
+      <Seo title="Your profile" description="Manage your AI Tab Saver account details, plan and preferences." path="/profile" noIndex />
       {/* Header */}
       <header className="sticky top-0 z-50 w-full border-b bg-white/80 backdrop-blur-md">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">

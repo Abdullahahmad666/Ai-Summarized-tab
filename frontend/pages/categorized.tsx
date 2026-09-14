@@ -31,6 +31,7 @@ import {
   Calendar,
   Filter,
 } from "lucide-react"
+import Seo from "../components/seo"
 
 interface Tab {
   id: number
@@ -167,6 +168,7 @@ export default function CategorizedTabsPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
+      <Seo title="Categorized tabs" description="Browse your saved tabs grouped into AI-generated categories, with a summary for each one." path="/categorized" noIndex />
       {/* Header */}
       <header className="sticky top-0 z-50 w-full border-b bg-white/80 backdrop-blur-md">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">

@@ -26,6 +26,7 @@ import {
   FileText,
   Video,
 } from "lucide-react"
+import Seo from "../components/seo"
 
 
 export default function YouTubeHelperPage() {
@@ -131,6 +132,7 @@ export default function YouTubeHelperPage() {
 
   return (
     <TooltipProvider>
+      <Seo title="YouTube helper" description="Turn any YouTube video into a structured summary with key terms and suggested follow-up resources." path="/youtube-helper" noIndex />
       <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
         {/* Header */}
         <header className="sticky top-0 z-50 w-full border-b bg-white/80 backdrop-blur-md">

@@ -20,6 +20,7 @@ import Link from "next/link"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "../components/ui/dropdown-menu"
 import { User } from "lucide-react"
 import Footer from '../components/footer';
+import Seo from "../components/seo"
 
 
 
@@ -30,6 +31,7 @@ export default function LandingPage() {
   }
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
+      <Seo description="AI Tab Saver is a Chrome extension that summarizes every tab you save, sorts them into smart categories, and turns your open tabs into a searchable, readable library." path="/" />
       {/* Header */}
       <header className="sticky top-0 z-50 w-full border-b bg-white/80 backdrop-blur-md">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">

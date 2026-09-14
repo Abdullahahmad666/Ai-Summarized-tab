@@ -7,6 +7,7 @@ import { Badge } from "../components/ui/badge"
 import { useRouter } from "next/navigation";
 import { Sparkles, Check, X, Crown,User, CreditCard, Shield, Zap } from "lucide-react"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "../components/ui/dropdown-menu"
+import Seo from "../components/seo"
 
 
 
@@ -31,6 +32,7 @@ export default function SubscriptionPlans() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
+      <Seo title="Pricing & plans" description="Compare the free and Pro plans for AI Tab Saver: unlimited tab saves, longer AI summaries, smart categories and priority support." path="/subscription" />
       {/* Header */}
       <header className="sticky top-0 z-50 w-full border-b bg-white/80 backdrop-blur-md">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">

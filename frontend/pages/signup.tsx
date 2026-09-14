@@ -10,6 +10,7 @@ import { Label } from "../components/ui/label"
 import { Alert, AlertDescription } from "../components/ui/alert"
 import { Sparkles, Eye, EyeOff, Mail, Lock, User, AlertCircle, Check } from "lucide-react"
 import { useRouter } from "next/navigation"
+import Seo from "../components/seo"
 
 
 
@@ -132,6 +133,7 @@ export default function SignupPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 flex items-center justify-center p-4">
+      <Seo title="Create your account" description="Create a free AI Tab Saver account and start summarizing and organizing your browser tabs in seconds." path="/signup" noIndex />
       <div className="w-full max-w-md">
         {/* Logo and Header */}
         <div className="text-center mb-8">

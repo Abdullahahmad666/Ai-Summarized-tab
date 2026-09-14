@@ -7,6 +7,7 @@ import { Badge } from "../components/ui/badge"
 import { Alert, AlertDescription } from "../components/ui/alert"
 import { Sparkles, ArrowLeft, ExternalLink, Zap, Clock, FileText, Brain, CheckCircle, AlertCircle, Loader2 } from 'lucide-react'
 import { useRouter } from "next/navigation"
+import Seo from "../components/seo"
 interface SummarizePageProps {
   tabData?: {
     id: number
@@ -119,6 +120,7 @@ The information is well-structured and provides both theoretical background and 
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
+      <Seo title="Summarize a page" description="Generate an AI summary of any webpage you have saved, with the key points pulled out for you." path="/summarize-page" noIndex />
       {/* Header */}
       <header className="sticky top-0 z-50 w-full border-b bg-white/80 backdrop-blur-md">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">

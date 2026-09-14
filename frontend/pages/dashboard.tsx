@@ -20,6 +20,7 @@ import {
   Zap,
 } from "lucide-react"
 import { useRouter } from "next/router"
+import Seo from "../components/seo"
 
 
 
@@ -116,6 +117,7 @@ export default function Dashboard() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
+      <Seo title="Dashboard" description="Your AI Tab Saver dashboard: recent saves, usage stats and quick access to every summarized tab." path="/dashboard" noIndex />
       {/* Header */}
       <header className="sticky top-0 z-50 w-full border-b bg-white/80 backdrop-blur-md">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">

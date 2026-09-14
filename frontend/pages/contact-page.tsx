@@ -9,6 +9,7 @@ import { Textarea } from "../components/ui/textarea"
 import { Alert, AlertDescription } from "../components/ui/alert"
 import { Sparkles, Mail, MapPin, Phone, Send, CheckCircle, AlertCircle, Clock, MessageSquare, Users, Headphones } from 'lucide-react'
 import { useRouter } from "next/navigation"
+import Seo from "../components/seo"
 
 
 export default function ContactPage() {
@@ -152,6 +153,7 @@ export default function ContactPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
+      <Seo title="Contact us" description="Questions, feedback or support requests for AI Tab Saver? Send the team a message and we will get back to you within 24 hours." path="/contact-page" />
       {/* Header */}
       <header className="sticky top-0 z-50 w-full border-b bg-white/80 backdrop-blur-md">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">

@@ -11,6 +11,7 @@ import { Alert, AlertDescription } from "../components/ui/alert"
 import { Sparkles, Eye, EyeOff, Mail, Lock, AlertCircle } from "lucide-react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
+import Seo from "../components/seo"
 
 
 
@@ -86,6 +87,7 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 flex items-center justify-center p-4">
+      <Seo title="Log in" description="Log in to AI Tab Saver to reach your saved tabs, AI summaries and categories from any device." path="/login" noIndex />
       <div className="w-full max-w-md">
         {/* Logo and Header */}
         <div className="text-center mb-8">
