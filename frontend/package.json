@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@radix-ui/react-accordion": "^1.1.2",
@@ -36,11 +37,11 @@
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
-    "@types/node": "^20.0.0",
+    "@types/node": "^24.13.4",
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.0",
     "autoprefixer": "^10.4.21",
-    "eslint": "^8.0.0",
+    "eslint": "^9.39.5",
     "eslint-config-next": "^16.3.5",
     "postcss": "^8.5.6",
     "shx": "^0.4.0",
@@ -48,6 +49,6 @@
     "typescript": "^5.0.0"
   },
   "engines": {
-    "node": ">=18.17.0"
+    "node": "24.x"
   }
 }

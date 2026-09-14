@@ -1,19 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  webpack(config) {
-    config.cache = false
-    return config
-  },
-  
+  // Turbopack is the default bundler in Next 16; an empty config is enough
+  // to opt in explicitly (replaces the old `webpack(config)` hook).
+  turbopack: {},
 
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
-  typescript: {
-    ignoreBuildErrors: true,
-  },
   images: {
-    domains: ['placeholder.svg'],
     remotePatterns: [
       {
         protocol: 'https',
