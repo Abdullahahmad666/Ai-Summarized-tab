@@ -220,7 +220,7 @@ The information is well-structured and provides both theoretical background and 
                     </div>
                     <h3 className="text-lg font-semibold text-gray-900 mb-2">Ready to Summarize</h3>
                     <p className="text-gray-600 mb-6 max-w-md mx-auto">
-                      Click the button below to generate an AI-powered summary of this webpage's content.
+                      Click the button below to generate an AI-powered summary of this webpage&apos;s content.
                     </p>
                     <Button
                       onClick={handleSummarize}
@@ -269,7 +269,7 @@ The information is well-structured and provides both theoretical background and 
                     <Alert className="border-green-200 bg-green-50">
                       <CheckCircle className="h-4 w-4 text-green-600" />
                       <AlertDescription className="text-green-800">
-                        Summary generated successfully! Here's what our AI found:
+                        Summary generated successfully! Here&apos;s what our AI found:
                       </AlertDescription>
                     </Alert>
 

@@ -64,6 +64,7 @@ export default function LoginPage() {
       console.log("Login attempt:", formData)
       // Handle successful login here
     } catch (error) {
+      console.error("Login failed:", error)
       setErrors({ general: "Login failed. Please check your credentials." })
     } finally {
       setIsLoading(false)

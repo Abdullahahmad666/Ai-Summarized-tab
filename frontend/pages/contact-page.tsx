@@ -89,6 +89,7 @@ export default function ContactPage() {
         setSubmitStatus("error")
       }
     } catch (error) {
+      console.error("Contact form submission failed:", error)
       setSubmitStatus("error")
     } finally {
       setIsSubmitting(false)
@@ -193,7 +194,7 @@ export default function ContactPage() {
         <div className="text-center mb-16">
           <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">Contact Us</h1>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Have questions about AI Tab Saver? We're here to help and would love to hear from you.
+            Have questions about AI Tab Saver? We&apos;re here to help and would love to hear from you.
           </p>
         </div>
 
@@ -226,7 +227,7 @@ export default function ContactPage() {
               <CardHeader>
                 <CardTitle className="text-2xl">Send us a Message</CardTitle>
                 <CardDescription>
-                  Fill out the form below and we'll get back to you as soon as possible.
+                  Fill out the form below and we&apos;ll get back to you as soon as possible.
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
@@ -235,7 +236,7 @@ export default function ContactPage() {
                   <Alert className="border-green-200 bg-green-50">
                     <CheckCircle className="h-4 w-4 text-green-600" />
                     <AlertDescription className="text-green-800">
-                      Thank you for your message! We'll get back to you within 24 hours.
+                      Thank you for your message! We&apos;ll get back to you within 24 hours.
                     </AlertDescription>
                   </Alert>
                 )}
@@ -445,7 +446,7 @@ export default function ContactPage() {
             <CardContent className="p-8">
               <h3 className="text-2xl font-bold text-gray-900 mb-4">Still have questions?</h3>
               <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
-                Our team is always happy to help. Don't hesitate to reach out if you need assistance with anything
+                Our team is always happy to help. Don&apos;t hesitate to reach out if you need assistance with anything
                 related to AI Tab Saver.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">

@@ -85,6 +85,7 @@ export default function SignupPage() {
       console.log("Signup attempt:", formData)
       // Handle successful signup here
     } catch (error) {
+      console.error("Signup failed:", error)
       setErrors({ general: "Signup failed. Please try again." })
     } finally {
       setIsLoading(false)

@@ -87,6 +87,8 @@ export default function YouTubeHelperPage() {
   ]
 
   // Mock key terms with tooltips
+  // Consumed by renderTextWithTooltips below, which is still commented out.
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const keyTerms = [
     {
       term: "Compound Components",

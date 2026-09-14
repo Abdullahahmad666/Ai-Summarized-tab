@@ -7,7 +7,6 @@ import { Badge } from "../components/ui/badge"
 import { useRouter } from "next/navigation";
 import { Sparkles, Check, X, Crown,User, CreditCard, Shield, Zap } from "lucide-react"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "../components/ui/dropdown-menu"
-import Dashboard from "./dashboard"
 
 
 

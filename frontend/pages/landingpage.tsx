@@ -14,13 +14,7 @@ import {
   X,
   Download,
   Crown,
-  Home,
-  Info,
   Mail,
-  FileCheck,
-  Twitter,
-  Github,
-  Linkedin,
 } from "lucide-react"
 import Link from "next/link"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "../components/ui/dropdown-menu"
@@ -301,8 +295,8 @@ export default function LandingPage() {
                   </div>
                 </div>
                 <p className="text-gray-700 mb-4 italic">
-                  "AI Tab Saver has completely changed how I research. The AI summaries save me hours every day, and the
-                  automatic categorization keeps everything organized perfectly."
+                  &ldquo;AI Tab Saver has completely changed how I research. The AI summaries save me hours every day, and the
+                  automatic categorization keeps everything organized perfectly.&rdquo;
                 </p>
                 <div className="flex items-center">
                   <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center text-white font-semibold">
@@ -329,8 +323,8 @@ export default function LandingPage() {
                   </div>
                 </div>
                 <p className="text-gray-700 mb-4 italic">
-                  "As a developer, I have dozens of documentation tabs open. The smart tooltips and categorization make
-                  it so easy to find what I need instantly. Game changer!"
+                  &ldquo;As a developer, I have dozens of documentation tabs open. The smart tooltips and categorization make
+                  it so easy to find what I need instantly. Game changer!&rdquo;
                 </p>
                 <div className="flex items-center">
                   <div className="w-10 h-10 bg-gradient-to-r from-green-500 to-blue-500 rounded-full flex items-center justify-center text-white font-semibold">
@@ -357,8 +351,8 @@ export default function LandingPage() {
                   </div>
                 </div>
                 <p className="text-gray-700 mb-4 italic">
-                  "I was skeptical about AI tools, but this extension is incredible. The summaries are accurate and the
-                  interface is so intuitive. Worth every penny of the Pro plan."
+                  &ldquo;I was skeptical about AI tools, but this extension is incredible. The summaries are accurate and the
+                  interface is so intuitive. Worth every penny of the Pro plan.&rdquo;
                 </p>
                 <div className="flex items-center">
                   <div className="w-10 h-10 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center text-white font-semibold">
@@ -505,7 +499,7 @@ export default function LandingPage() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button size="lg" className="bg-white text-blue-600 hover:bg-gray-100">
               <Chrome className="mr-2 h-5 w-5" />
-              Install Now - It's Free
+              Install Now - It&apos;s Free
             </Button>
             <Button
               size="lg"
@@ -619,7 +613,7 @@ export default function LandingPage() {
                     Is there a mobile version?
                   </h3>
                   <p className="text-gray-600 text-sm">
-                    Currently, AI Tab Saver is available as a Chrome extension for desktop. We're working on mobile apps
+                    Currently, AI Tab Saver is available as a Chrome extension for desktop. We&apos;re working on mobile apps
                     and other browser support - stay tuned!
                   </p>
                 </div>
