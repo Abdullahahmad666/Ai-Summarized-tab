@@ -19,9 +19,17 @@ function resolveSiteUrl(): string {
 export const siteConfig = {
   name: "AI Tab Saver",
   url: resolveSiteUrl(),
-  title: "AI Tab Saver — Save, summarize and organize your browser tabs",
+  /** Home-page <title>. Keep <= 60 chars so Google does not truncate it. */
+  title: "AI Tab Saver — Summarize and organize your browser tabs",
+  /** Meta description. Keep <= 155 chars for search results. */
   description:
-    "AI Tab Saver is a Chrome extension that summarizes every tab you save, sorts them into smart categories, and turns your open tabs into a searchable, readable library.",
+    "Chrome extension that summarizes every tab you save and sorts them into smart categories, turning your open tabs into a searchable library.",
+  /**
+   * og:description / twitter:description. Social cards show far less text
+   * than Google does, so keep this <= 125 chars or it gets clipped on mobile.
+   */
+  socialDescription:
+    "Save any tab, get an instant AI summary, and find it later in smart categories.",
   twitter: "@aitabsaver",
   locale: "en_US",
 } as const
@@ -40,3 +48,13 @@ export function ogImageUrl(title?: string, subtitle?: string): string {
   const query = params.toString()
   return absoluteUrl(`/api/og${query ? `?${query}` : ""}`)
 }
+
+/** Recommended maximum lengths, enforced by a development-only warning in <Seo />. */
+export const SEO_LIMITS = {
+  /** Google truncates search-result titles past roughly this width. */
+  title: 60,
+  /** Google truncates meta descriptions around 150-160 characters. */
+  description: 155,
+  /** Social cards show roughly this much before clipping, especially on mobile. */
+  socialDescription: 125,
+} as const
